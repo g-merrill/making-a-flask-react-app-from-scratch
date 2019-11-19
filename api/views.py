@@ -17,8 +17,11 @@ def add_item():
 
 @api.route('/items')
 def items():
-
+  items_list = Item.query.all()
   items = []
+
+  for item in items_list:
+    items.append({ 'name': item.name, 'description': item.description })
 
   return jsonify({ 'items': items })
 
