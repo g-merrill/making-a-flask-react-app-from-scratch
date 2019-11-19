@@ -178,20 +178,21 @@ $ python
 >>> from api import db, create_app
 >>> db.create_all(app=create_app())
 ```
-This should create a database.db file in the /api folder
-
-Back in the terminal, check to see if the table was created by entering the following :
-sqlite3 api/database.db
-
-Now in the sqlite shell :
+* This should create a database.db file in the /api folder
+* Back in the terminal, check to see if the table was created by entering the following :
+```
+$ sqlite3 api/database.db
+```
+* Now in the sqlite shell :
+```
 .tables
+```
+* You should see 'item'
+* If you type 'select * from item', nothing should show up since there isn't anything in the db yet
+* Type .exit to exit the sqlite shell
 
-You should see 'item'
-If you type 'select * from item', nothing should show up since there isn't anything in the db yet
-Type .exit to exit the sqlite shell
-
-In api/views.py, make the following changes :
-`
+* In api/views.py, make the following changes :
+```
 from flask import Blueprint, jsonify, request
 from . import db
 from .models import Item
@@ -210,28 +211,33 @@ def add_item():
   return 'Done', 201
 
 …
-`
-Now type flask run
-Open Postman
-Change method to POST and navigate to http://localhost:5000/add_item
-Click the Body tab
-Make sure the dropdown on the right is set to JSON
-Select 'raw' as the input type and enter something like :
+```
+```
+$ flask run
+```
+* Open Postman
+* Change method to POST and navigate to http://localhost:5000/add_item
+* Click the Body tab
+* Make sure the dropdown on the right is set to JSON
+* Select 'raw' as the input type and enter something like :
+```
 { 
 	"name" : "Greg",
 	"description" : "Learning how to build a flask/react app from scratch!"
 }
-Click send
-Should receive the Done message if everything works out
+```
+* Click send
+* Should receive the Done message if everything works out
 
-Back in VS Code terminal, type :
-sqlite3 api/database.db
+* Back in VS Code terminal, type :
+```
+$ sqlite3 api/database.db
 select * from item
+```
+* You should see your entry there!
 
-You should see your entry there!
-
-In api/views.py :
-`
+* In api/views.py :
+```
 …
 
 @api.route('/items')
@@ -245,26 +251,25 @@ def items():
   return jsonify({ 'items': items })
 
 …
-`
+```
+* Remember to have server running via the 'flask run' command
+* Now in Postman, the /items get request should show the data you entered!
 
-Remember to have server running via the 'flask run' command
-Now in Postman, the /items get request should show the data you entered!
-
-Okay now we are going to get things up and running on your app deployed on heroku with the Postgres db
-
-First, in api/__init__.py, switch the commented-out lines :
-`
+* Okay now we are going to get things up and running on your app deployed on heroku with the Postgres db
+* First, in api/__init__.py, switch the commented-out lines :
+```
 …
 
   app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
   # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 
 …
-`
-
-touch api/commands.py
-inside api/commands.py :
-`
+```
+```
+$ touch api/commands.py
+```
+* inside api/commands.py :
+```
 import click
 from flask.cli import with_appcontext
 
@@ -276,9 +281,9 @@ from .models import Item
 def reset_items():
   db.drop_all()
   db.create_all()
-`
-Refactor api/__init__.py with the commands lines :
-`
+```
+* Refactor api/__init__.py with the commands lines :
+```
 import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
@@ -301,52 +306,56 @@ def create_app():
   app.cli.add_command(reset_items)
 
   return app
-`
-Git commit, push, and wait for Heroku to rebuild/redeploy
-In the heroku dashboard, click the 'More' dropdown in the top right corner
-Click run console
-Type 'flask reset_items' and then click Run
-Navigate to your deployed url + '/items'
-And you should see:
+```
+* Git commit, push, and wait for Heroku to rebuild/redeploy
+* In the heroku dashboard, click the 'More' dropdown in the top right corner
+* Click run console
+* Type 'flask reset_items' and then click Run
+* Navigate to your deployed url + '/items'
+* And you should see:
+```
 {
 	items: [ ]
 }
-Back in Heroku, you may need to add a SECRET_KEY as another config var, you can make it any random string that you would like (I am unsure if this is actually needed or not, since my other flask/react hasn't needed one)
+```
+* Back in Heroku, you may need to add a SECRET_KEY as another config var, you can make it any random string that you would like (I am unsure if this is actually needed or not, since my other flask/react apps haven't needed one)
+* If you want to reset on the local server side, type 'flask reset_items' and then 'flask run'
 
-If you want to reset on the local server side, type 'flask reset_items' and then 'flask run'
+* You should be all set up to build out the React frontend now!
 
-You should be all set up to build out the React frontend now!
-
-in the VS terminal, keep the flask backend running on one terminal
-Open up a new terminal and type:
-npx create-react-app react-frontend
-cd react-frontend
-npm start
-
-Open up a new terminal and type : 
-cd react-frontend/
-npm i semantic-ui-react semantic-ui-css
-
-In index.js, add this import to the rest of the imports:
+* in the VS terminal, keep the flask backend running on one terminal
+* Open up a new terminal and type:
+```
+$ npx create-react-app react-frontend
+$ cd react-frontend
+$ npm start
+```
+* Open up a new terminal and type : 
+```
+$ cd react-frontend/
+$ npm i semantic-ui-react semantic-ui-css
+```
+* In index.js, add this import to the rest of the imports:
+```
 import 'semantic-ui-css/semantic.min.css';
-
-In package.json, add the proxy as so:
-`
+```
+* In package.json, add the proxy as so:
+```
 …
   },
   "proxy": "http://localhost:5000",
   "browserslist": {
 …
-`
-
-In the terminal, make sure you are still in /react-frontend
-Do the following commands :
-mkdir components
-touch components/ItemForm.js
-touch components/Items.js
-
+```
+* In the terminal, make sure you are still in /react-frontend
+* Do the following commands :
+```
+$ mkdir components
+$ touch components/ItemForm.js
+$ touch components/Items.js
+```
 In ItemForm.js :
-`
+```
 import React, { useState } from 'react';
 import { Form, Input, Button } from 'semantic-ui-react';
 
@@ -394,7 +403,7 @@ export const ItemForm = ({ onNewItem }) => {
     </Form>
   );
 }
-`
+```
 
 In Items.js :
 `
