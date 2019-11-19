@@ -24,6 +24,3 @@ def items():
     items.append({ 'name': item.name, 'description': item.description })
 
   return jsonify({ 'items': items })
-
-# name = db.Column(db.String(50))
-# description = db.Column(db.String(250))
