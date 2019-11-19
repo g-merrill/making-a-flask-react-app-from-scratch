@@ -505,36 +505,33 @@ $ npm run eject
           filename: '../../templates/index.html',
 ```
 * In public/index.html, underneath the <title> tag, write :
+```
     <script>window.token = "{{ token }}"</script>
-
-In the react frontend, in App.js, can put the following anywhere you want to test if things are properly working :
+```
+* In the react frontend, in App.js, can put the following anywhere you want to test if things are properly working :
+```
       <p>My Token = { window.token }</p>
-
-In package.json, add a homepage top-level variable:
-`
+```
+* In package.json, add a homepage top-level variable:
+```
 … 
   "private": true,
   "homepage": "/static/react",
   "dependencies": {
 …
-`
-
-making sure you are in the react frontend directory
-In the terminal, type :
+```
+* making sure you are in the react frontend directory
+* In the terminal, type :
+```
 npm run build
+```
+* Install any necessary packages that you are prompted to
+* You should see a react folder in the api/static folder now and and index.html in the templates folder
+* Anytime you make any changes to your react frontend, you need to do 'npm run build' to update the actually served files inside the api directory
+* Start up your flask backend
+* Browse to localhost:5000
+* You should see your react frontend with the sample token message!
+* git commit and push and wait for Heroku to rebuild/redeploy
 
-Install any necessary packages that you are prompted to
-
-You should see a react folder in the api/static folder now and and index.html in the templates folder
-
-Anytime you make any changes to your react frontend, you need to do 'npm run build' to update the actually served files inside the api directory
-
-Start up your flask backend
-Browse to localhost:5000
-
-You should see your react frontend with the sample token message!
-
-git commit and push and wait for Heroku to rebuild/redeploy
-
-Congrats, you made it to the end of this guide!
-Check out your shiny new deployed Flask/React app!!!
+**Congrats, you made it to the end of this guide!
+Check out your shiny new deployed Flask/React app!!!**
