@@ -354,7 +354,7 @@ $ mkdir components
 $ touch components/ItemForm.js
 $ touch components/Items.js
 ```
-In ItemForm.js :
+* In ItemForm.js :
 ```
 import React, { useState } from 'react';
 import { Form, Input, Button } from 'semantic-ui-react';
@@ -404,9 +404,8 @@ export const ItemForm = ({ onNewItem }) => {
   );
 }
 ```
-
-In Items.js :
-`
+* In Items.js :
+```
 import React from 'react';
 import { List, Header } from 'semantic-ui-react';
 
@@ -424,10 +423,9 @@ export const Items = ({ items }) => {
     </List>
   );
 }
-`
-
-Refactor App.js as so: 
-`
+```
+* Refactor App.js as so: 
+```
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import { Items } from './components/Items';
@@ -460,26 +458,24 @@ function App() {
 }
 
 export default App;
-`
-
-Delete the logo.svg file and README.md files
-
-In App.css :
-`
+```
+* Delete the logo.svg file and README.md files
+* In App.css :
+```
 .App {
   text-align: center;
 }
-`
-Git commit and git push - almost there!
+```
+* Git commit and git push - almost there!
 
-now that we have a front end that we are happy with and don't anticipate needing the React hot-reloading much more, it's time to build this out to be served by our Flask backend.  Again, you will lose the handy React hot-reloading on localhost:3000 with npm start by using this method, so be sure to have your frontend in a relatively finished state before doing these final steps.  After these steps, you can still make changes to the frontend, but they must be applied manually with a terminal command and a small wait time.
-
-In the terminal :
-mkdir api/static
-mkdir api/templates
-
-In api/views.py, add a home route as such:
-`
+* Now that we have a front end that we are happy with and don't anticipate needing the React hot-reloading much more, it's time to build this out to be served by our Flask backend.  Again, you will lose the handy React hot-reloading on localhost:3000 with npm start by using this method, so be sure to have your frontend in a relatively finished state before doing these final steps.  After these steps, you can still make changes to the frontend, but they must be applied manually with a terminal command and a small wait time.
+* In the terminal :
+```
+$ mkdir api/static
+$ mkdir api/templates
+```
+* In api/views.py, add a home route as such:
+```
 from flask import Blueprint, jsonify, request, render_template
 
 …
@@ -489,24 +485,26 @@ def my_index():
   return render_template('index.html', token='Hello Flask+React')
 
 …
-`
-git commit and push before doing the following
-In the terminal :
-cd react-frontend/
-npm run eject
-
-When prompted to confirm, type y
-
-Once completed, in config/paths.js around line 72:
-Change appBuild to:
+```
+* git commit and push before doing the following
+* In the terminal :
+```
+$ cd react-frontend/
+$ npm run eject
+```
+* When prompted to confirm, type y
+* Once completed, in config/paths.js around line 72:
+* Change appBuild to:
+```
   appBuild: resolveApp('../api/static/react'),
-
-In web pack.config.js, control+F and command+D for 'static/' as necessary and erase them all, there should be around 8 of them
-Down around line ~528, in plugins: [ new HtmlWebpackPlugin( Object.assign etc,
-Beneath the inject and template lines, write the following:
-            filename: '../../templates/index.html',
-
-In public/index.html, underneath the <title> tag, write :
+```
+* In web pack.config.js, control+F and command+D for 'static/' as necessary and erase them all, there should be around 8 of them
+* Down around line ~528, in plugins: [ new HtmlWebpackPlugin( Object.assign etc,
+* Beneath the inject and template lines, write the following:
+```
+          filename: '../../templates/index.html',
+```
+* In public/index.html, underneath the <title> tag, write :
     <script>window.token = "{{ token }}"</script>
 
 In the react frontend, in App.js, can put the following anywhere you want to test if things are properly working :
