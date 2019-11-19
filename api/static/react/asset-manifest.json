@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/static/react/css/main.1779617f.chunk.css",
+    "main.js": "/static/react/js/main.37a18c46.chunk.js",
+    "main.js.map": "/static/react/js/main.37a18c46.chunk.js.map",
+    "runtime-main.js": "/static/react/js/runtime-main.c8857416.js",
+    "runtime-main.js.map": "/static/react/js/runtime-main.c8857416.js.map",
+    "css/2.29d6e9af.chunk.css": "/static/react/css/2.29d6e9af.chunk.css",
+    "js/2.a79be3c4.chunk.js": "/static/react/js/2.a79be3c4.chunk.js",
+    "js/2.a79be3c4.chunk.js.map": "/static/react/js/2.a79be3c4.chunk.js.map",
+    "../../templates/index.html": "/static/react/../../templates/index.html",
+    "css/2.29d6e9af.chunk.css.map": "/static/react/css/2.29d6e9af.chunk.css.map",
+    "css/main.1779617f.chunk.css.map": "/static/react/css/main.1779617f.chunk.css.map",
+    "media/semantic.min.css": "/static/react/media/outline-icons.ef60a4f6.woff",
+    "precache-manifest.a5015699e869a2012dbd76ab49366e13.js": "/static/react/precache-manifest.a5015699e869a2012dbd76ab49366e13.js",
+    "service-worker.js": "/static/react/service-worker.js"
+  },
+  "entrypoints": [
+    "js/runtime-main.c8857416.js",
+    "css/2.29d6e9af.chunk.css",
+    "js/2.a79be3c4.chunk.js",
+    "css/main.1779617f.chunk.css",
+    "js/main.37a18c46.chunk.js"
+  ]
+}
