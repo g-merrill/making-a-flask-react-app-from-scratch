@@ -1,23 +1,23 @@
 ```
-mkdir flask-react-app
-cd flask-react-app
-git init && code .
+$ mkdir flask-react-app
+$ cd flask-react-app
+$ git init && code .
 
-pipenv install flask flask-sqlalchemy
-pipenv shell
+$ pipenv install flask flask-sqlalchemy
+$ pipenv shell
 
-git add . && git status
-git commit -m 'Initial commit'
+$ git add . && git status
+$ git commit -m 'Initial commit'
 ```
 * Create repo on Github
 ```
-git remote add origin https://github.com/<yourgithubusername>/<yourreponame>.git
-git push -u origin master
+$ git remote add origin https://github.com/<yourgithubusername>/<yourreponame>.git
+$ git push -u origin master
 
-mkdir api
-export FLASK_APP=api
-export FLASK_DEBUG=1
-touch api/__init__.py
+$ mkdir api
+$ export FLASK_APP=api
+$ export FLASK_DEBUG=1
+$ touch api/__init__.py
 ```
 * inside api/__init__.py :
 ```
@@ -29,7 +29,7 @@ def create_app():
   return app
 ```
 ```
-touch api/views.py
+$ touch api/views.py
 ```
 * Inside api/views.py :
 ```
@@ -60,7 +60,7 @@ def create_app():
   return app
 ```
 ```
-flask run
+$ flask run
 ```
 * Navigate to http://localhost:5000/items
 * You can verify the POST route is working via Postman
@@ -75,8 +75,8 @@ flask run
 
 * Back in VS Code terminal :
 ```
-pipenv install gunicorn
-touch wsgi.py
+$ pipenv install gunicorn
+$ touch wsgi.py
 ```
 Inside wsgi.py :
 ```
@@ -85,7 +85,7 @@ from api import create_app
 app = create_app()
 ```
 ```
-touch Procfile
+$ touch Procfile
 ```
 Inside Procfile :
 ```
