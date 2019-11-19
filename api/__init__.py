@@ -4,6 +4,8 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
+from .commands import reset_items
+
 def create_app():
   app = Flask(__name__)
 
@@ -14,5 +16,7 @@ def create_app():
 
   from .views import api
   app.register_blueprint(api)
+
+  app.cli.add_command(reset_items)
 
   return app
