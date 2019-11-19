@@ -21,7 +21,9 @@ function App() {
       style={{ marginTop: 40 }}
     >
       <ItemForm 
-        onNewItem={item => setItems(currentItems => [item, ...currentItems])} />
+        onNewItem={item => setItems(currentItems => [item, ...currentItems])}
+      />
+      <p>My Token = { window.token }</p>
       <Items 
         items={ items }
       />
