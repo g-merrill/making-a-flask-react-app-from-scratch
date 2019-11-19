@@ -533,5 +533,5 @@ npm run build
 * You should see your react frontend with the sample token message!
 * git commit and push and wait for Heroku to rebuild/redeploy
 
-**Congrats, you made it to the end of this guide!
-Check out your shiny new deployed Flask/React app!!!**
+**Congrats, you made it to the end of this guide!**
+**Check out your shiny new deployed Flask/React app!!!**
