@@ -1,35 +1,38 @@
+```
 mkdir flask-react-app
 cd flask-react-app
 git init && code .
+
 pipenv install flask flask-sqlalchemy
 pipenv shell
 
 git add . && git status
 git commit -m 'Initial commit'
-
-Create repo on Github
+```
+* Create repo on Github
+```
 git remote add origin https://github.com/<yourgithubusername>/<yourreponame>.git
 git push -u origin master
 
 mkdir api
-
 export FLASK_APP=api
 export FLASK_DEBUG=1
-
 touch api/__init__.py
-inside api/__init__.py :
-`
+```
+* inside api/__init__.py :
+```
 from flask import Flask
 
 def create_app():
   app = Flask(__name__)
 
   return app
-`
-
+```
+```
 touch api/views.py
-Inside api/views.py :
-`
+```
+* Inside api/views.py :
+```
 from flask import Blueprint, jsonify
 
 api = Blueprint('api', __name__)
@@ -45,10 +48,9 @@ def items():
   items = []
 
   return jsonify({ 'items': items })
-`
-
-inside api/__init__.py, modify the create_app function :
-`
+```
+* inside api/__init__.py, modify the create_app function :
+```
 def create_app():
   app = Flask(__name__)
 
@@ -56,48 +58,52 @@ def create_app():
   app.register_blueprint(api)
 
   return app
-`
-
+```
+```
 flask run
-Navigate to http://localhost:5000/items
-You can verify the POST route is working via Postman
+```
+* Navigate to http://localhost:5000/items
+* You can verify the POST route is working via Postman
 
-Open heroku dashboard
-new>Create new app
-Give it a name and hit Create app
-Under Deployment method, select GitHub
-Connect to GitHub by search for your repo
-Once you have found the repo you are using, click Connect
-Under Automatic deploys, click Enable Automatic Deploys
+* Open heroku dashboard
+* new>Create new app
+* Give it a name and hit Create app
+* Under Deployment method, select GitHub
+* Connect to GitHub by search for your repo
+* Once you have found the repo you are using, click Connect
+* Under Automatic deploys, click Enable Automatic Deploys
 
-Back in VS Code terminal :
+* Back in VS Code terminal :
+```
 pipenv install gunicorn
 touch wsgi.py
+```
 Inside wsgi.py :
-`
+```
 from api import create_app
 
 app = create_app()
-`
-
+```
+```
 touch Procfile
+```
 Inside Procfile :
-`
+```
 web: gunicorn wsgi:app
-`
+```
+* Commit and push changes
 
-Commit and push changes
-
-If not already automatically starting build and deploying:
-Under manual deploy, click Deploy Branch
-Once deployed, go to the deployed url by clicking Open app at the top of the page
-
-Should see Not Found because you haven't set up the root route at '/'
-If you navigate to '/items' you should see:
+* If not already automatically starting build and deploying:
+* Under manual deploy, click Deploy Branch
+* Once deployed, go to the deployed url by clicking Open app at the top of the page
+* Should see Not Found because you haven't set up the root route at '/'
+* If you navigate to '/items' you should see:
+```
 {
 	items: [ ]
 }
-just like it showed locally!
+```
+* just like it showed locally!
 
 On the Heroku app page, click Overview tab
 In Installed add-ons section, click Configure Add-ons
