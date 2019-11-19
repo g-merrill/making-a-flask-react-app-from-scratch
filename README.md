@@ -37,12 +37,12 @@ from flask import Blueprint, jsonify
 
 api = Blueprint('api', __name__)
 
-@api.route('/add_item', methods=['POST'])
+@api.route('/api/add_item', methods=['POST'])
 def add_item():
 
   return 'Done', 201
 
-@api.route('/items')
+@api.route('/api/items')
 def items():
 
   items = []
@@ -59,10 +59,11 @@ def create_app():
 
   return app
 ```
+* In the terminal :
 ```
 $ flask run
 ```
-* Navigate to http://localhost:5000/items
+* Navigate to http://localhost:5000/api/items
 * You can verify the POST route is working via Postman
 
 * Open heroku dashboard
@@ -97,7 +98,7 @@ web: gunicorn wsgi:app
 * Under manual deploy, click Deploy Branch
 * Once deployed, go to the deployed url by clicking Open app at the top of the page
 * Should see Not Found because you haven't set up the root route at '/'
-* If you navigate to '/items' you should see:
+* If you navigate to '/api/items' you should see:
 ```
 {
 	items: [ ]
@@ -199,7 +200,7 @@ from .models import Item
 
 …
 
-@api.route('/add_item', methods=['POST'])
+@api.route('/api/add_item', methods=['POST'])
 def add_item():
   item_data = request.get_json()
 
@@ -216,7 +217,7 @@ def add_item():
 $ flask run
 ```
 * Open Postman
-* Change method to POST and navigate to http://localhost:5000/add_item
+* Change method to POST and navigate to http://localhost:5000/api/add_item
 * Click the Body tab
 * Make sure the dropdown on the right is set to JSON
 * Select 'raw' as the input type and enter something like :
@@ -240,7 +241,7 @@ select * from item
 ```
 …
 
-@api.route('/items')
+@api.route('/api/items')
 def items():
   items_list = Item.query.all()
   items = []
@@ -253,7 +254,7 @@ def items():
 …
 ```
 * Remember to have server running via the 'flask run' command
-* Now in Postman, the /items get request should show the data you entered!
+* Now in Postman, the /api/items get request should show the data you entered!
 
 * Okay now we are going to get things up and running on your app deployed on heroku with the Postgres db
 * First, in api/__init__.py, switch the commented-out lines :
@@ -311,7 +312,7 @@ def create_app():
 * In the heroku dashboard, click the 'More' dropdown in the top right corner
 * Click run console
 * Type 'flask reset_items' and then click Run
-* Navigate to your deployed url + '/items'
+* Navigate to your deployed url + '/api/items'
 * And you should see:
 ```
 {
