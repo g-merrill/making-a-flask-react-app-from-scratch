@@ -9,7 +9,7 @@ function App() {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    fetch('/items').then(res => 
+    fetch('/api/items').then(res => 
       res.json().then(data => {
         setItems(data.items)
       })

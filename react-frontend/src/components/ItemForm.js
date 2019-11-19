@@ -25,7 +25,7 @@ export const ItemForm = ({ onNewItem }) => {
         <Button 
           onClick={async () => {
             const item = {name, description};
-            const response = await fetch('/add_item', {
+            const response = await fetch('/api/add_item', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'

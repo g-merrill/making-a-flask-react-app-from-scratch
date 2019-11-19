@@ -4,7 +4,7 @@ from .models import Item
 
 api = Blueprint('api', __name__)
 
-@api.route('/add_item', methods=['POST'])
+@api.route('/api/add_item', methods=['POST'])
 def add_item():
   item_data = request.get_json()
 
@@ -15,7 +15,7 @@ def add_item():
 
   return 'Done', 201
 
-@api.route('/items')
+@api.route('/api/items')
 def items():
   items_list = Item.query.all()
   items = []
