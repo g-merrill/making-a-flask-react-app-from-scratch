@@ -1,8 +1,12 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, render_template
 from . import db
 from .models import Item
 
 api = Blueprint('api', __name__)
+
+@api.route('/')
+def my_index():
+  return render_template('index.html', token='Hello Flask+React')
 
 @api.route('/api/add_item', methods=['POST'])
 def add_item():
