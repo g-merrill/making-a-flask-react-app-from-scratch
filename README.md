@@ -105,28 +105,29 @@ web: gunicorn wsgi:app
 ```
 * just like it showed locally!
 
-On the Heroku app page, click Overview tab
-In Installed add-ons section, click Configure Add-ons
-In the Add-ons search bar, type postgres
-'Heroku Postgres' should be available, click that
-Select Plan (Hobby Dev is free)
-Click Provision
-In Settings tab, under Config Vars, click reveal Config Vars
-Click the edit button
-Copy the value of the DATABASE_URL
-Exit edit screen
+* On the Heroku app page, click Overview tab
+* In Installed add-ons section, click Configure Add-ons
+* In the Add-ons search bar, type postgres
+* 'Heroku Postgres' should be available, click that
+* Select Plan (Hobby Dev is free)
+* Click Provision
+* In Settings tab, under Config Vars, click reveal Config Vars
+* Click the edit button
+* Copy the value of the DATABASE_URL
+* Exit edit screen
 
-In VS Code:
-pipenv install python-dotenv
-touch .env
-in .env :
-`
+* In VS Code:
+```
+$ pipenv install python-dotenv
+$ touch .env
+```
+* in .env :
+```
 DATABASE_URL=<copied db url value>
-` 
-
-in api/__init__.py
-Refactor the code to look like the following :
-`
+```
+* in api/__init__.py
+* Refactor the code to look like the following :
+```
 import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
@@ -145,32 +146,38 @@ def create_app():
   app.register_blueprint(api)
 
   return app
-`
-
-pipenv install psycopg2
-If that fails :
-pipenv uninstall psycopg2
-pipenv install psycopg2-binary
-
-touch api/models.py
-inside api/models.py :
-`
+```
+```
+$ pipenv install psycopg2
+```
+* If that fails :
+```
+$ pipenv uninstall psycopg2
+$ pipenv install psycopg2-binary
+```
+```
+$ touch api/models.py
+```
+* inside api/models.py :
+```
 from . import db
 
 class Item(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   name = db.Column(db.String(50))
   description = db.Column(db.String(250))
-`
-Before using Postgres lets set up a local sqlite db just for easy development purposes
-
-In the terminal, open the python shell by typing :
-python
-then, type the following commands:
-from api.models import Item
-from api import db, create_app
-db.create_all(app=create_app())
-
+```
+* Before using Postgres lets set up a local sqlite db just for easy development purposes
+* In the terminal, open the python shell by typing :
+```
+$ python
+```
+* then, type the following commands:
+```
+>>> from api.models import Item
+>>> from api import db, create_app
+>>> db.create_all(app=create_app())
+```
 This should create a database.db file in the /api folder
 
 Back in the terminal, check to see if the table was created by entering the following :
