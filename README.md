@@ -549,3 +549,7 @@ npm run build
 
 **Congrats, you made it to the end of this guide!**
 **Check out your shiny new deployed Flask/React app!!!**
+
+[Deployed Link!](https://flask-react-app-from-scratch.herokuapp.com/)
+
+This app creation process was written out after completing the following code-alongs with Anthony Herbert (Pretty Printed), Ben Awad, and Joran Beasly: [Flask Movie API Example](https://youtu.be/Urx8Kj00zsI) | [How to Call a Flask API in React](https://youtu.be/06pWsB_hoD4) | [Deploy a Flask App to Heroku With a Postgres Database](https://youtu.be/FKy21FnjKS0) | [Serving React with a Flask Backend](https://youtu.be/YW8VG_U-m48)
