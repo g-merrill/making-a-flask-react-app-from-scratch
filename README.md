@@ -28,7 +28,7 @@ def create_app():
 
   return app
 ```
-<br />
+
 ```
 $ touch api/views.py
 ```
@@ -86,7 +86,7 @@ from api import create_app
 
 app = create_app()
 ```
-<br />
+
 ```
 $ touch Procfile
 ```
@@ -106,7 +106,7 @@ web: gunicorn wsgi:app
 }
 ```
 * just like it showed locally!
-<br />
+
 * On the Heroku app page, click Overview tab
 * In Installed add-ons section, click Configure Add-ons
 * In the Add-ons search bar, type postgres
@@ -117,7 +117,7 @@ web: gunicorn wsgi:app
 * Click the edit button
 * Copy the value of the DATABASE_URL
 * Exit edit screen
-<br />
+
 * In VS Code:
 ```
 $ pipenv install python-dotenv
