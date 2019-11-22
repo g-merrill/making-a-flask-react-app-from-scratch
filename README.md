@@ -29,6 +29,7 @@ def create_app():
   return app
 ```
 
+
 ```
 $ touch api/views.py
 ```
@@ -67,6 +68,7 @@ $ flask run
 * Navigate to http://localhost:5000/api/items
 * You can verify the POST route is working via Postman
 
+
 * Open heroku dashboard
 * new>Create new app
 * Give it a name and hit Create app
@@ -74,6 +76,7 @@ $ flask run
 * Connect to GitHub by search for your repo
 * Once you have found the repo you are using, click Connect
 * Under Automatic deploys, click Enable Automatic Deploys
+
 
 * Back in VS Code terminal :
 ```
@@ -86,6 +89,7 @@ from api import create_app
 
 app = create_app()
 ```
+
 
 ```
 $ touch Procfile
@@ -107,6 +111,7 @@ web: gunicorn wsgi:app
 ```
 * just like it showed locally!
 
+
 * On the Heroku app page, click Overview tab
 * In Installed add-ons section, click Configure Add-ons
 * In the Add-ons search bar, type postgres
@@ -117,6 +122,7 @@ web: gunicorn wsgi:app
 * Click the edit button
 * Copy the value of the DATABASE_URL
 * Exit edit screen
+
 
 * In VS Code:
 ```
@@ -149,6 +155,8 @@ def create_app():
 
   return app
 ```
+
+
 ```
 $ pipenv install psycopg2
 ```
@@ -157,6 +165,8 @@ $ pipenv install psycopg2
 $ pipenv uninstall psycopg2
 $ pipenv install psycopg2-binary
 ```
+
+
 ```
 $ touch api/models.py
 ```
@@ -169,7 +179,9 @@ class Item(db.Model):
   name = db.Column(db.String(50))
   description = db.Column(db.String(250))
 ```
-* Before using Postgres lets set up a local sqlite db just for easy development purposes
+
+
+* Before using Postgres let's set up a local sqlite db just for easy development purposes
 * In the terminal, open the python shell by typing :
 ```
 $ python
@@ -193,6 +205,7 @@ $ sqlite3 api/database.db
 * If you type 'select * from item', nothing should show up since there isn't anything in the db yet
 * Type .exit to exit the sqlite shell
 
+
 * In api/views.py, make the following changes :
 ```
 from flask import Blueprint, jsonify, request
@@ -214,6 +227,8 @@ def add_item():
 
 …
 ```
+
+
 ```
 $ flask run
 ```
@@ -230,14 +245,12 @@ $ flask run
 ```
 * Click send
 * Should receive the Done message if everything works out
-
 * Back in VS Code terminal, type :
 ```
 $ sqlite3 api/database.db
 select * from item
 ```
 * You should see your entry there!
-
 * In api/views.py :
 ```
 …
@@ -256,6 +269,7 @@ def items():
 ```
 * Remember to have server running via the 'flask run' command
 * Now in Postman, the /api/items get request should show the data you entered!
+
 
 * Okay now we are going to get things up and running on your app deployed on heroku with the Postgres db
 * First, in api/__init__.py, switch the commented-out lines :
@@ -323,7 +337,9 @@ def create_app():
 * Back in Heroku, you may need to add a SECRET_KEY as another config var, you can make it any random string that you would like (I am unsure if this is actually needed or not, since my other flask/react apps haven't needed one)
 * If you want to reset on the local server side, type 'flask reset_items' and then 'flask run'
 
+
 * You should be all set up to build out the React frontend now!
+
 
 * in the VS terminal, keep the flask backend running on one terminal
 * Open up a new terminal and type:
@@ -364,7 +380,6 @@ import { Form, Input, Button } from 'semantic-ui-react';
 export const ItemForm = ({ onNewItem }) => {
   const [ name, setName ] = useState('');
   const [ description, setDescription ] = useState('');
-
   return (
     <Form>
       <Form.Field>
@@ -392,7 +407,6 @@ export const ItemForm = ({ onNewItem }) => {
               },
               body: JSON.stringify(item)
             });
-
             if (response.ok) {
               console.log('response worked!');
               onNewItem(item);
@@ -435,9 +449,7 @@ import { ItemForm } from './components/ItemForm';
 import { Container } from 'semantic-ui-react';
 
 function App() {
-
   const [items, setItems] = useState([]);
-
   useEffect(() => {
     fetch('/api/items').then(res => 
       res.json().then(data => {
@@ -445,7 +457,6 @@ function App() {
       })
     );
   }, []);
-
   return (
     <Container 
       style={{ marginTop: 40 }}
@@ -469,6 +480,7 @@ export default App;
 }
 ```
 * Git commit and git push - almost there!
+
 
 * Now that we have a front end that we are happy with and don't anticipate needing the React hot-reloading much more, it's time to build this out to be served by our Flask backend.  Again, you will lose the handy React hot-reloading on localhost:3000 with npm start by using this method, so be sure to have your frontend in a relatively finished state before doing these final steps.  After these steps, you can still make changes to the frontend, but they must be applied manually with a terminal command and a small wait time.
 * In the terminal :
@@ -501,8 +513,7 @@ $ npm run eject
   appBuild: resolveApp('../api/static/react'),
 ```
 * In web pack.config.js, control+F and command+D for 'static/' as necessary and erase them all, there should be around 8 of them
-* Down around line ~528, in plugins: [ new HtmlWebpackPlugin( Object.assign etc,
-* Beneath the inject and template lines, write the following:
+* Down around line ~528, in plugins: [ new HtmlWebpackPlugin( Object.assign etc, beneath the inject and template lines, write the following:
 ```
           filename: '../../templates/index.html',
 ```
@@ -529,11 +540,12 @@ npm run build
 ```
 * Install any necessary packages that you are prompted to
 * You should see a react folder in the api/static folder now and and index.html in the templates folder
-* Anytime you make any changes to your react frontend, you need to do 'npm run build' to update the actually served files inside the api directory
+* **Note:** Anytime you make any changes to your react frontend, you need to do 'npm run build' to update the actually served files inside the api directory
 * Start up your flask backend
 * Browse to localhost:5000
 * You should see your react frontend with the sample token message!
 * git commit and push and wait for Heroku to rebuild/redeploy
+
 
 **Congrats, you made it to the end of this guide!**
 **Check out your shiny new deployed Flask/React app!!!**
