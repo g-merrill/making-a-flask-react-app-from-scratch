@@ -9,7 +9,7 @@ $ pipenv shell
 $ git add . && git status
 $ git commit -m 'Initial commit'
 ```
-* Create repo on Github
+* Create your repo on Github
 ```
 $ git remote add origin https://github.com/<yourgithubusername>/<yourreponame>.git
 $ git push -u origin master
@@ -28,6 +28,7 @@ def create_app():
 
   return app
 ```
+<br />
 ```
 $ touch api/views.py
 ```
@@ -79,21 +80,21 @@ $ flask run
 $ pipenv install gunicorn
 $ touch wsgi.py
 ```
-Inside wsgi.py :
+* Inside wsgi.py :
 ```
 from api import create_app
 
 app = create_app()
 ```
+<br />
 ```
 $ touch Procfile
 ```
-Inside Procfile :
+* Inside Procfile :
 ```
 web: gunicorn wsgi:app
 ```
 * Commit and push changes
-
 * If not already automatically starting build and deploying:
 * Under manual deploy, click Deploy Branch
 * Once deployed, go to the deployed url by clicking Open app at the top of the page
@@ -105,7 +106,7 @@ web: gunicorn wsgi:app
 }
 ```
 * just like it showed locally!
-
+<br />
 * On the Heroku app page, click Overview tab
 * In Installed add-ons section, click Configure Add-ons
 * In the Add-ons search bar, type postgres
@@ -116,7 +117,7 @@ web: gunicorn wsgi:app
 * Click the edit button
 * Copy the value of the DATABASE_URL
 * Exit edit screen
-
+<br />
 * In VS Code:
 ```
 $ pipenv install python-dotenv
