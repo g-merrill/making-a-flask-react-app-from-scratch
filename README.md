@@ -11,6 +11,7 @@ $ git add . && git status
 $ git commit -m 'Initial commit'
 ```
 2). Create your repo on Github
+
 3).
 ```
 $ git remote add origin https://github.com/<yourgithubusername>/<yourreponame>.git
