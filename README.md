@@ -19,7 +19,7 @@ $ export FLASK_APP=api
 $ export FLASK_DEBUG=1
 $ touch api/__init__.py
 ```
-* inside api/__init__.py :
+* inside api/\_\_init\_\_.py :
 ```
 from flask import Flask
 
@@ -51,7 +51,7 @@ def items():
 
   return jsonify({ 'items': items })
 ```
-* inside api/__init__.py, modify the create_app function :
+* inside api/\_\_init\_\_.py, modify the create_app function :
 ```
 def create_app():
   app = Flask(__name__)
@@ -65,7 +65,14 @@ def create_app():
 ```
 $ flask run
 ```
+
 * Navigate to http://localhost:5000/api/items
+* **Note:** Anytime that you close and reopen the terminal/project, you can get the app running locally again with the following terminal commands:
+```
+$ export FLASK_APP=api
+$ export FLASK_DEBUG=1
+$ flask run
+```
 * You can verify the POST route is working via Postman
 
 
@@ -133,7 +140,7 @@ $ touch .env
 ```
 DATABASE_URL=<copied db url value>
 ```
-* in api/__init__.py
+* in api/\_\_init\_\_.py
 * Refactor the code to look like the following :
 ```
 import os
@@ -272,7 +279,7 @@ def items():
 
 
 * Okay now we are going to get things up and running on your app deployed on heroku with the Postgres db
-* First, in api/__init__.py, switch the commented-out lines :
+* First, in api/\_\_init\_\_.py, switch the commented-out lines :
 ```
 …
 
@@ -298,7 +305,7 @@ def reset_items():
   db.drop_all()
   db.create_all()
 ```
-* Refactor api/__init__.py with the commands lines :
+* Refactor api/\_\_init\_\_.py with the commands lines :
 ```
 import os
 from flask import Flask
