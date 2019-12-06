@@ -75,13 +75,21 @@ $ export FLASK_DEBUG=1
 $ flask run
 ```
 10). You can verify the POST route is working via Postman
+
 11). Open heroku dashboard
+
 12). new>Create new app
+
 13). Give it a name and hit Create app
+
 14). Under Deployment method, select GitHub
+
 15). Connect to GitHub by search for your repo
+
 16). Once you have found the repo you are using, click Connect
+
 17). Under Automatic deploys, click Enable Automatic Deploys
+
 18). Back in VS Code terminal :
 ```
 $ pipenv install gunicorn
@@ -103,9 +111,12 @@ web: gunicorn wsgi:app
 ```
 22). Commit and push changes
 * If not already automatically starting build and deploying:
+
 22a). Under manual deploy, click Deploy Branch
+
 23). Once deployed, go to the deployed url by clicking Open app at the top of the page
 * Should see Not Found because you haven't set up the root route at '/'
+
 24). If you navigate to '/api/items' you should see:
 ```
 {
