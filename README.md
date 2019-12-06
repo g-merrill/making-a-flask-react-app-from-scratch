@@ -74,7 +74,8 @@ $ export FLASK_APP=api
 $ export FLASK_DEBUG=1
 $ flask run
 ```
-10) Use Postman to verifty that the POST route is working by making a POST request to localhost/5000/api/add_post. If it returns "Done" then it is working!
+10) Use Postman to verifty that the POST route is working by making a POST request to localhost/5000/api/add_post. If it returns "Done" then it is working! 
+
 -------------- HEROKU --------------
 11) Open Heroku dashboard
 
