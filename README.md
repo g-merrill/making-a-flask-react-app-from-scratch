@@ -74,6 +74,7 @@ $ flask run
 9) Navigate to http://localhost:5000/api/items
 * __Note:__ Anytime that you close and reopen the terminal/project, you can get the app running locally again with the following terminal commands:
 ```
+$ pipenv shell
 $ export FLASK_APP=api
 $ export FLASK_DEBUG=1
 $ flask run
