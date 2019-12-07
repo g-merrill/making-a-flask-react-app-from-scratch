@@ -1,4 +1,4 @@
----------------------------- SETTING UP FLASK APP AND GITHUB ----------------------------
+## Setting Up Flask App and GitHub
 
 1) 
 ```
@@ -33,7 +33,7 @@ def create_app():
 
   return app
 ```
----------------------------- SETTING UP INITIAL ROUTES ----------------------------
+## Setting Up Initial Routes
 
 5)
 ```
@@ -81,23 +81,23 @@ $ flask run
 ```
 10) Use [Postman](https://youtu.be/MdyJn4EKfc4) to verifty that the POST route is working by making a POST request to localhost/5000/api/add_post. If it returns "Done" then it is working! 
 
----------------------------- SETTING UP HEROKU ----------------------------
+## Setting Up Heroku
 
-11) Open [Heroku](https://dashboard.heroku.com/) dashboard
+1)  Open [Heroku](https://dashboard.heroku.com/) dashboard
 
-12) new>Create new app
+2)  new>Create new app
 
-13) Give it a name and hit Create app
+3)  Give it a name and hit Create app
 
-14) Under Deployment method, select GitHub
+4)  Under Deployment method, select GitHub
 
-15) Connect to GitHub by search for your repo
+5)  Connect to GitHub by search for your repo
 
-16) Once you have found the repo you are using, click Connect
+6)  Once you have found the repo you are using, click Connect
 
-17) Under Automatic deploys, click Enable Automatic Deploys
+7)  Under Automatic deploys, click Enable Automatic Deploys
 
-18) Back in VS Code terminal :
+8)  Back in VS Code terminal :
 ```
 $ pipenv install gunicorn
 $ touch wsgi.py
@@ -132,7 +132,7 @@ web: gunicorn wsgi:app
 ```
 just like it showed locally!
 
----------------------------- SETTING UP POSTGRES VIA HEROKU ----------------------------
+## Setting Up Postgres via Heroku
 
 25) On the Heroku app page, click Overview tab
 
@@ -164,7 +164,7 @@ $ touch .env
 DATABASE_URL=<copied db url value>
 ```
 
----------------------------- SETTING UP SQLITE DATABASE LOCALLY ----------------------------
+## Setting Up SQLite Database Locally
 
 37) in api/\_\_init\_\_.py, refactor the code to look like the following :
 ```
@@ -233,9 +233,9 @@ $ sqlite3 api/database.db
 45) If you type 'select * from item', nothing should show up since there isn't anything in the db yet
 46) Type .exit to exit the sqlite shell
 
----------------------------- ITEM CREATE ROUTE (THE 'C' IN CRUD) ----------------------------
+## Item Create Route (The 'C' in CRUD)
 
-47) In api/views.py, make the following changes :
+1)  In api/views.py, make the following changes :
 ```
 from flask import Blueprint, jsonify, request
 from . import db
@@ -274,7 +274,7 @@ $ flask run
 54) Click send
 * Should receive the Done message if everything works out
 
----------------------------- ITEM READ-ALL ROUTE (THE 'R' IN CRUD) ----------------------------
+## Item Read-All Route (The 'R' in CRUD)
 
 55) Back in VS Code terminal, type :
 ```
@@ -302,7 +302,7 @@ def items():
 * Remember to have server running via the 'flask run' command
 * Now in Postman, the '/api/items' get request should show the data you entered!
 
----------------------------- SWITCHING FROM SQLITE TO POSTGRES ----------------------------
+## Switching From SQLite to PostgreSQL
 
 * Okay now we are going to get things up and running on your app deployed on heroku with the Postgres db
 57) First, in api/\_\_init\_\_.py, switch the commented-out lines :
@@ -375,7 +375,7 @@ def create_app():
 * Back in Heroku, you may need to add a SECRET_KEY as another config var, you can make it any random string that you would like (I am unsure if this is actually needed or not, since my other flask/react apps haven't needed one)
 * __Note:__ If you want to reset on the local server side, type 'flask reset_items' and then 'flask run'
 
----------------------------- SET UP REACT FRONTEND ----------------------------
+## Set Up React Frontend
 * You should be all set up to build out the React frontend now!
 * in the VS terminal, keep the flask backend running on one terminal
 66) Open up a new terminal and type:
@@ -517,10 +517,10 @@ export default App;
 ```
 76) Git commit and git push - almost there!
 
----------------------------- NPM EJECT ----------------------------
+## Npm Eject
 
 * Now that we have a front end that we are happy with and don't anticipate needing the React hot-reloading much more, it's time to build this out to be served by our Flask backend.  Again, you will lose the handy React hot-reloading on localhost:3000 with npm start by using this method, so be sure to have your frontend in a relatively finished state before doing these final steps.  After these steps, you can still make changes to the frontend, but they must be applied manually with a terminal command and a small wait time.
-77) In the terminal, at the root level :
+1)  In the terminal, at the root level :
 ```
 $ mkdir api/static
 $ mkdir api/templates
@@ -581,7 +581,7 @@ npm run build
 * You should see your react frontend with the sample token message!
 92) git commit and push and wait for Heroku to rebuild/redeploy
 
-
+## Done!
 **Congrats, you made it to the end of this guide!**
 **Check out your shiny new deployed Flask/React app!!!**
 
