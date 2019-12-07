@@ -1,4 +1,4 @@
--------------- SETTING UP FLASK APP AND GITHUB --------------
+---------------------------- SETTING UP FLASK APP AND GITHUB ----------------------------
 
 1) 
 ```
@@ -33,7 +33,7 @@ def create_app():
 
   return app
 ```
--------------- SETTING UP INITIAL ROUTES --------------
+---------------------------- SETTING UP INITIAL ROUTES ----------------------------
 
 5)
 ```
@@ -80,7 +80,7 @@ $ flask run
 ```
 10) Use [Postman](https://youtu.be/MdyJn4EKfc4) to verifty that the POST route is working by making a POST request to localhost/5000/api/add_post. If it returns "Done" then it is working! 
 
--------------- SETTING UP HEROKU --------------
+---------------------------- SETTING UP HEROKU ----------------------------
 
 11) Open [Heroku](https://dashboard.heroku.com/) dashboard
 
@@ -131,7 +131,7 @@ web: gunicorn wsgi:app
 ```
 just like it showed locally!
 
--------------- SETTING UP POSTGRES VIA HEROKU --------------
+---------------------------- SETTING UP POSTGRES VIA HEROKU ----------------------------
 
 25) On the Heroku app page, click Overview tab
 
@@ -163,7 +163,7 @@ $ touch .env
 DATABASE_URL=<copied db url value>
 ```
 
--------------- SETTING UP SQLITE DATABASE LOCALLY --------------
+---------------------------- SETTING UP SQLITE DATABASE LOCALLY ----------------------------
 
 37) in api/\_\_init\_\_.py, refactor the code to look like the following :
 ```
@@ -232,7 +232,7 @@ $ sqlite3 api/database.db
 45) If you type 'select * from item', nothing should show up since there isn't anything in the db yet
 46) Type .exit to exit the sqlite shell
 
--------------- ITEM CREATE ROUTE (THE 'C' IN CRUD) --------------
+---------------------------- ITEM CREATE ROUTE (THE 'C' IN CRUD) ----------------------------
 
 47) In api/views.py, make the following changes :
 ```
@@ -272,7 +272,9 @@ $ flask run
 ```
 54) Click send
 * Should receive the Done message if everything works out
--------------- ITEM READ-ALL ROUTE (THE 'R' IN CRUD) --------------
+
+---------------------------- ITEM READ-ALL ROUTE (THE 'R' IN CRUD) ----------------------------
+
 55) Back in VS Code terminal, type :
 ```
 $ sqlite3 api/database.db
@@ -299,7 +301,7 @@ def items():
 * Remember to have server running via the 'flask run' command
 * Now in Postman, the '/api/items' get request should show the data you entered!
 
--------------- SWITCHING TO POSTGRES --------------
+---------------------------- SWITCHING FROM SQLITE TO POSTGRES ----------------------------
 
 * Okay now we are going to get things up and running on your app deployed on heroku with the Postgres db
 57) First, in api/\_\_init\_\_.py, switch the commented-out lines :
@@ -372,7 +374,7 @@ def create_app():
 * Back in Heroku, you may need to add a SECRET_KEY as another config var, you can make it any random string that you would like (I am unsure if this is actually needed or not, since my other flask/react apps haven't needed one)
 * __Note:__ If you want to reset on the local server side, type 'flask reset_items' and then 'flask run'
 
--------------- SET UP REACT FRONTEND --------------
+---------------------------- SET UP REACT FRONTEND ----------------------------
 * You should be all set up to build out the React frontend now!
 * in the VS terminal, keep the flask backend running on one terminal
 66) Open up a new terminal and type:
@@ -514,7 +516,7 @@ export default App;
 ```
 76) Git commit and git push - almost there!
 
--------------- NPM EJECT --------------
+---------------------------- NPM EJECT ----------------------------
 
 * Now that we have a front end that we are happy with and don't anticipate needing the React hot-reloading much more, it's time to build this out to be served by our Flask backend.  Again, you will lose the handy React hot-reloading on localhost:3000 with npm start by using this method, so be sure to have your frontend in a relatively finished state before doing these final steps.  After these steps, you can still make changes to the frontend, but they must be applied manually with a terminal command and a small wait time.
 77) In the terminal, at the root level :
