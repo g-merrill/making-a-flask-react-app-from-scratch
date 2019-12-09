@@ -124,13 +124,13 @@ $ touch Procfile
 web: gunicorn wsgi:app
 ```
 28) Commit and push changes
-* If not already automatically starting build and deploying:
+* If not already automatically starting build and deploying :
 
-28a) Under manual deploy, click Deploy Branch
+28a. Under manual deploy, click Deploy Branch
 
 29) Once deployed, go to the deployed url by clicking Open app at the top of the page
 * Should see Not Found because you haven't set up the root route at '/'
-30) If you navigate to '/api/items' you should see:
+30) If you navigate to '/api/items' you should see :
 ```
 {
 	items: [ ]
@@ -148,7 +148,7 @@ just like it showed locally!
 38) Click the edit button
 39) Copy the value of the DATABASE_URL, it should begin with 'postgres://'...
 40) Exit edit screen
-41) In VS Code:
+41) In VS Code :
 ```
 $ pipenv install python-dotenv
 $ touch .env
@@ -162,7 +162,7 @@ DATABASE_URL=<copied db url value>
 ```
 $ pipenv install psycopg2
 ```
-43b) If that fails to install, do the following :
+43a. If that fails to install, do the following :
 ```
 $ pipenv uninstall psycopg2
 $ pipenv install psycopg2-binary
@@ -318,7 +318,7 @@ $ flask run
 ## Set Up React Frontend
 * You should be all set up to build out the React frontend now!
 * in the VS terminal, keep the flask backend running on one terminal
-64)  Open up a new terminal and type:
+64)  Open up a new terminal and type :
 ```
 $ npx create-react-app react-frontend
 $ cd react-frontend
@@ -329,11 +329,11 @@ $ npm start
 $ cd react-frontend/
 $ npm i semantic-ui-react semantic-ui-css
 ```
-66) In index.js, add this import to the rest of the imports:
+66) In index.js, add this import to the rest of the imports :
 ```
 import 'semantic-ui-css/semantic.min.css';
 ```
-67) In package.json, add the proxy as so:
+67) In package.json, add the proxy as so :
 ```
 …
   },
@@ -416,7 +416,7 @@ export const Items = ({ items }) => {
   );
 }
 ```
-71) Refactor App.js as so: 
+71) Refactor App.js as so : 
 ```
 import React, { useEffect, useState } from 'react';
 import './App.css';
@@ -468,7 +468,7 @@ $ git branch frontend
 $ mkdir api/static
 $ mkdir api/templates
 ```
-77) In api/views.py, add a home route as such:
+77) In api/views.py, add a home route as such :
 ```
 from flask import Blueprint, jsonify, request, render_template
 
@@ -487,12 +487,12 @@ $ cd react-frontend/
 $ npm run eject
 ```
 80) When prompted to confirm, type y
-81) Once completed, in config/paths.js around line 72, change appBuild to:
+81) Once completed, in config/paths.js around line 72, change appBuild to :
 ```
   appBuild: resolveApp('../api/static/react'),
 ```
 82) In web pack.config.js, control+F and command+D for 'static/' as necessary and erase them all, there should be around 8 of them
-83) Down around line ~520-528, in plugins: [ new HtmlWebpackPlugin( Object.assign etc, beneath the inject and template lines, write the following:
+83) Down around line ~520-528, in plugins: [ new HtmlWebpackPlugin( Object.assign etc, beneath the inject and template lines, write the following :
 ```
           filename: '../../templates/index.html',
 ```
@@ -504,7 +504,7 @@ $ npm run eject
 ```
       <p>My Token = { window.token }</p>
 ```
-86) In package.json, add a homepage top-level variable:
+86) In package.json, add a homepage top-level variable :
 ```
 … 
   "private": true,
@@ -530,7 +530,7 @@ npm run build
 $ git checkout frontend
 ```
 * This branch should be non-ejected, so you should have access to the instant reload while making frontend changes on localhost:3000 using npm start
-* potential [bugfix](https://stackoverflow.com/a/42539669/12498743) with node_modules needing to be deleted and reinstalled:
+* potential [bugfix](https://stackoverflow.com/a/42539669/12498743) with node_modules needing to be deleted and reinstalled
 92) Make any desired frontend changes
 93) In the terminal :
 ```
