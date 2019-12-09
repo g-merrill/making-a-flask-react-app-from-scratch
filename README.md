@@ -129,7 +129,6 @@ web: gunicorn wsgi:app
 * If not already automatically starting build and deploying:
 
 28a) Under manual deploy, click Deploy Branch
-
 29) Once deployed, go to the deployed url by clicking Open app at the top of the page
 * Should see Not Found because you haven't set up the root route at '/'
 
