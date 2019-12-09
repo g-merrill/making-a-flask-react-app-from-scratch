@@ -79,7 +79,7 @@ $ flask run
   items: []
 }
 ```
-* __Note:__ Anytime that you close and reopen the terminal/project, you can get the app running locally again with the following terminal commands:
+* __Note:__ Anytime that you close and reopen the terminal/project, you can get the app running locally again with the following terminal commands :
 ```
 $ pipenv shell
 $ export FLASK_APP=api
@@ -89,13 +89,9 @@ $ flask run
 * Use [Postman](https://youtu.be/MdyJn4EKfc4) to verify that the POST route is working
 
 10)  Open Postman
-
 11)  Change method to POST and navigate to http://localhost:5000/api/add_item
-
 12)  Click the Body tab
-
 13)  Make sure the dropdown on the right is set to JSON
-
 14)  Select 'raw' as the input type
 15)  In the text area, enter something like :
 ```
