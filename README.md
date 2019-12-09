@@ -96,13 +96,14 @@ $ flask run
 
 13)  Make sure the dropdown on the right is set to JSON
 
-15)  Select 'raw' as the input type and enter something like :
+14)  Select 'raw' as the input type
+15)  In the text area, enter something like :
 ```
 {
   "test": "Expecting Done, 201 response"
 }
 ```
-16) Click Send
+16)  Click Send
 * If it returns "Done" then it is working! 
 
 ## Setting Up Heroku
