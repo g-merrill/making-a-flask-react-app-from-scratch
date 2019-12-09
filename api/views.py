@@ -21,7 +21,7 @@ def add_item():
 
 @api.route('/api/items')
 def items():
-  items_list = Item.query.all()
+  items_list = Item.query.order_by(Item.id.desc())
   items = []
 
   for item in items_list:

@@ -124,13 +124,10 @@ $ touch Procfile
 web: gunicorn wsgi:app
 ```
 28) Commit and push changes
-* If not already automatically starting build and deploying :
-
-28a. Under manual deploy, click Deploy Branch
-
-29) Once deployed, go to the deployed url by clicking Open app at the top of the page
-* Should see Not Found because you haven't set up the root route at '/'
-30) If you navigate to your deployed url + '/api/items', you should see :
+29) Switching back to Heroku, under manual deploy, click Deploy Branch
+30) Once deployed, navigate to the deployed url by clicking Open app at the top of the page
+* It should give you a Not Found message because you haven't set up the root route at '/'
+31) Navigate to your deployed url + '/api/items'. You should see :
 ```
 {
 	items: [ ]
@@ -138,60 +135,35 @@ web: gunicorn wsgi:app
 ```
 just like it showed locally!
 ## Setting Up Postgres via Heroku
-31) On the Heroku app page, click Overview tab
-32) In Installed add-ons section, click Configure Add-ons
-33) In the Add-ons search bar, type 'postgres'
-34) 'Heroku Postgres' should be available, click that
-35) Select the plan you would like (Hobby Dev is free)
-36) Click Provision
-37) In Settings tab, under Config Vars, click reveal Config Vars
-38) Click the edit button
-39) Copy the value of the DATABASE_URL, it should begin with 'postgres://'...
-40) Exit edit screen
-41) In VS Code :
+32) On the Heroku app page, click Overview tab
+33) In Installed add-ons section, click Configure Add-ons
+34) In the Add-ons search bar, type 'postgres'
+35) 'Heroku Postgres' should be available, click that
+36) Select the plan you would like (Hobby Dev is free)
+37) Click Provision
+38) In Settings tab, under Config Vars, click reveal Config Vars
+39) Click the edit button
+40) Copy the value of the DATABASE_URL, it should begin with 'postgres://'...
+41) Exit edit screen
+42) In VS Code :
 ```
 $ pipenv install python-dotenv
 $ touch .env
 ```
-42) in .env file :
+43) in .env file :
 ```
 DATABASE_URL=<copied db url value>
 ```
 ## Setting Up the Database Locally
-43)
+44)
 ```
-$ pipenv install psycopg2
-```
-43a. If that fails to install, do the following :
-```
-$ pipenv uninstall psycopg2
 $ pipenv install psycopg2-binary
-```
-44) in api/\_\_init\_\_.py, refactor the code to look like the following :
-```
-import os
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-
-db = SQLAlchemy()
-
-def create_app():
-  app = Flask(__name__)
-  
-  app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
-
-  db.init_app(app)
-
-  from .views import api
-  app.register_blueprint(api)
-
-  return app
 ```
 45)
 ```
 $ touch api/models.py
 ```
-46)  inside api/models.py :
+46) inside api/models.py :
 ```
 from . import db
 
@@ -204,7 +176,7 @@ class Item(db.Model):
 ```
 $ touch api/commands.py
 ```
-48)  inside api/commands.py :
+48) inside api/commands.py :
 ```
 import click
 from flask.cli import with_appcontext
@@ -218,7 +190,7 @@ def reset_items():
   db.drop_all()
   db.create_all()
 ```
-49) Refactor api/\_\_init\_\_.py with the commands lines :
+49) Refactor api/\_\_init\_\_.py as so :
 ```
 import os
 from flask import Flask
@@ -242,7 +214,7 @@ def create_app():
 
   return app
 ```
-50) In the terminal, type 
+50) In the terminal, type :
 ```
 $ flask reset_items
 ```
@@ -293,7 +265,7 @@ $ flask run
 
 @api.route('/api/items')
 def items():
-  items_list = Item.query.all()
+  items_list = Item.query.order_by(Item.id.desc())
   items = []
 
   for item in items_list:
@@ -305,7 +277,7 @@ def items():
 ```
 * Remember to have your server running via the 'flask run' command
 60) In Postman, change the request method to GET
-61) Type '/api/items' in the address bar 
+61) Type 'http://localhost:5000/api/items' as the request URL
 * should show the JSON data you entered!
 62) Git commit, push, and wait for Heroku to rebuild/redeploy
 63) Navigate to your deployed url + '/api/items'
@@ -480,8 +452,8 @@ def home():
 
 …
 ```
-78) git commit and push ejected branch to origin before doing the following
-79) In the terminal :
+1)  git commit and push the master branch before doing the following
+2)  In the terminal :
 ```
 $ cd react-frontend/
 $ npm run eject
@@ -500,7 +472,7 @@ $ npm run eject
 ```
     <script>window.token = "{{ token }}"</script>
 ```
-85) In the react frontend, in App.js, can put the following anywhere you want to test if things are properly working :
+85) In App.js, you can put the following anywhere inside the returned JSX to verify that the backend is in communication with the frontend:
 ```
       <p>My Token = { window.token }</p>
 ```
@@ -518,10 +490,10 @@ npm run build
 ```
 * Install any necessary packages if you are prompted to
 * You should now see a react folder in the api/static folder now and and index.html in the templates folder
-88)  Start up your flask backend
+88) Start up your flask backend
 89) Browse to http://localhost:5000
 * You should see your react frontend with the sample token message!
-90)  git commit and push and wait for Heroku to rebuild/redeploy
+90) git commit, git push, wait for Heroku to rebuild/redeploy, open the app at the deployed url and...
 
 **Check out your shiny new deployed Flask/React app!!!**
 ## Making Further Frontend Changes in React
@@ -546,6 +518,6 @@ $ export FLASK_APP=api && export FLASK_DEBUG=1 && open http://localhost:5000 && 
 ## Done!
 **Congrats, you made it to the end of this guide!**
 
-[Deployed Link!](https://flask-react-app-from-scratch.herokuapp.com/)
+[Sample Deployed App!](https://flask-react-app-from-scratch.herokuapp.com/)
 
 This app creation process was written out after completing the following code-alongs with Anthony Herbert (Pretty Printed), Ben Awad, and Joran Beasly: [Flask Movie API Example](https://youtu.be/Urx8Kj00zsI) | [How to Call a Flask API in React](https://youtu.be/06pWsB_hoD4) | [Deploy a Flask App to Heroku With a Postgres Database](https://youtu.be/FKy21FnjKS0) | [Serving React with a Flask Backend](https://youtu.be/YW8VG_U-m48)
