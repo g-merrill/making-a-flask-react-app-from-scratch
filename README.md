@@ -129,6 +129,7 @@ web: gunicorn wsgi:app
 * If not already automatically starting build and deploying:
 
 28a) Under manual deploy, click Deploy Branch
+
 29) Once deployed, go to the deployed url by clicking Open app at the top of the page
 * Should see Not Found because you haven't set up the root route at '/'
 
@@ -139,29 +140,17 @@ web: gunicorn wsgi:app
 }
 ```
 just like it showed locally!
-
 ## Setting Up Postgres via Heroku
-
 31) On the Heroku app page, click Overview tab
-
 32) In Installed add-ons section, click Configure Add-ons
-
 33) In the Add-ons search bar, type 'postgres'
-
 34) 'Heroku Postgres' should be available, click that
-
 35) Select the plan you would like (Hobby Dev is free)
-
 36) Click Provision
-
 37) In Settings tab, under Config Vars, click reveal Config Vars
-
 38) Click the edit button
-
 39) Copy the value of the DATABASE_URL, it should begin with 'postgres://'...
-
 40) Exit edit screen
-
 41) In VS Code:
 ```
 $ pipenv install python-dotenv
@@ -171,9 +160,7 @@ $ touch .env
 ```
 DATABASE_URL=<copied db url value>
 ```
-
 ## Setting Up the Database Locally
-
 43)
 ```
 $ pipenv install psycopg2
@@ -263,9 +250,7 @@ def create_app():
 $ flask reset_items
 ```
 * running this command should create the items table in your postgres db for the first time
-
 ## Item Create Route (The 'C' in CRUD)
-
 51)  In api/views.py, make the following changes :
 ```
 from flask import Blueprint, jsonify, request
@@ -292,13 +277,9 @@ def add_item():
 $ flask run
 ```
 53) Open Postman
-
 54) Change method to POST and navigate to http://localhost:5000/api/add_item
-
 55) Click the Body tab
-
 56) Make sure the dropdown on the right is set to JSON
-
 57) Select 'raw' as the input type and enter something like :
 ```
 { 
@@ -308,9 +289,7 @@ $ flask run
 ```
 58) Click send
 * Should receive the Done message if everything works out
-
 ## Item Read-All Route (The 'R' in CRUD)
-
 59)  In api/views.py :
 ```
 …
@@ -330,12 +309,10 @@ def items():
 * Remember to have your server running via the 'flask run' command
 
 60) In Postman, change the request method to GET
-
 61) Type '/api/items' in the address bar 
 * should show the JSON data you entered!
 
 62) Git commit, push, and wait for Heroku to rebuild/redeploy
-
 63) Navigate to your deployed url + '/api/items'
 * You should also see the JSON data you entered in Postman!
 * __Note:__ If you want to reset your database via the command line, type :
@@ -371,7 +348,7 @@ import 'semantic-ui-css/semantic.min.css';
 …
 ```
 * In the terminal, make sure you are still in /react-frontend
-68) Do the following commands :
+68)  Do the following commands :
 ```
 $ mkdir src/components
 $ touch src/components/ItemForm.js
