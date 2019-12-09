@@ -1,5 +1,4 @@
 ## Setting Up Flask App and GitHub
-
 1) 
 ```
 $ mkdir flask-react-app
@@ -84,7 +83,6 @@ $ export FLASK_DEBUG=1
 $ flask run
 ```
 * Use [Postman](https://youtu.be/MdyJn4EKfc4) to verify that the POST route is working :
-
 10)  Open Postman
 11)  Change method to POST and navigate to http://localhost:5000/api/add_item
 12)  Click the Body tab
@@ -132,7 +130,6 @@ web: gunicorn wsgi:app
 
 29) Once deployed, go to the deployed url by clicking Open app at the top of the page
 * Should see Not Found because you haven't set up the root route at '/'
-
 30) If you navigate to '/api/items' you should see:
 ```
 {
@@ -307,11 +304,9 @@ def items():
 …
 ```
 * Remember to have your server running via the 'flask run' command
-
 60) In Postman, change the request method to GET
 61) Type '/api/items' in the address bar 
 * should show the JSON data you entered!
-
 62) Git commit, push, and wait for Heroku to rebuild/redeploy
 63) Navigate to your deployed url + '/api/items'
 * You should also see the JSON data you entered in Postman!
@@ -323,7 +318,6 @@ $ flask run
 ## Set Up React Frontend
 * You should be all set up to build out the React frontend now!
 * in the VS terminal, keep the flask backend running on one terminal
-
 64)  Open up a new terminal and type:
 ```
 $ npx create-react-app react-frontend
@@ -456,7 +450,6 @@ function App() {
 export default App;
 ```
 72) Delete the logo.svg file and README.md files
-
 73) In App.css :
 ```
 .App {
@@ -464,11 +457,8 @@ export default App;
 }
 ```
 74) Git commit and git push - almost there!
-
 ## Npm Eject
-
 * Once you are happy with your React frontend, it's time to use npm run build to serve our frontend work with our Flask backend.  However, to get the index.html to be written to the backend directory, 'api', we will need to do npm run eject.  By doing so, you will lose the handy React hot-reloading on localhost:3000 with npm start by using this method, but we will do a workaround to be able to keep it!  So at this point, we will split the project into two branches, a frontend branch and the master branch.  The master branch will be the branch we do npm run eject from, and we'll merge any additional React frontend changes in from the unejected React-friendly frontend branch if need be.
-
 75) Create a new branch in the terminal :
 ```
 $ git branch frontend
@@ -491,20 +481,17 @@ def home():
 …
 ```
 78) git commit and push ejected branch to origin before doing the following
-
 79) In the terminal :
 ```
 $ cd react-frontend/
 $ npm run eject
 ```
 80) When prompted to confirm, type y
-
 81) Once completed, in config/paths.js around line 72, change appBuild to:
 ```
   appBuild: resolveApp('../api/static/react'),
 ```
 82) In web pack.config.js, control+F and command+D for 'static/' as necessary and erase them all, there should be around 8 of them
-
 83) Down around line ~520-528, in plugins: [ new HtmlWebpackPlugin( Object.assign etc, beneath the inject and template lines, write the following:
 ```
           filename: '../../templates/index.html',
@@ -531,27 +518,20 @@ npm run build
 ```
 * Install any necessary packages if you are prompted to
 * You should now see a react folder in the api/static folder now and and index.html in the templates folder
-
 88)  Start up your flask backend
-
 89) Browse to http://localhost:5000
 * You should see your react frontend with the sample token message!
-
 90)  git commit and push and wait for Heroku to rebuild/redeploy
 
 **Check out your shiny new deployed Flask/React app!!!**
-
 ## Making Further Frontend Changes in React
-
 91) Switch to frontend branch
 ```
 $ git checkout frontend
 ```
 * This branch should be non-ejected, so you should have access to the instant reload while making frontend changes on localhost:3000 using npm start
 * potential [bugfix](https://stackoverflow.com/a/42539669/12498743) with node_modules needing to be deleted and reinstalled:
-
 92) Make any desired frontend changes
-
 93) In the terminal :
 ```
 $ git add . && git status
@@ -563,9 +543,7 @@ $ cd react-frontend && npm run build && cd .. && pipenv shell
 $ export FLASK_APP=api && export FLASK_DEBUG=1 && open http://localhost:5000 && flask run
 ```
 94)  Git commit, push, and wait for Heroku to rebuild/redeploy
-
 ## Done!
-
 **Congrats, you made it to the end of this guide!**
 
 [Deployed Link!](https://flask-react-app-from-scratch.herokuapp.com/)
