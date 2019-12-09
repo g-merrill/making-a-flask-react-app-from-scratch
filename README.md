@@ -13,7 +13,6 @@ $ git add . && git status
 $ git commit -m 'Initial commit'
 ```
 2) Create your repo on [Github](https://github.com/new)
-
 3)
 ```
 $ git remote add origin https://github.com/<yourgithubusername>/<yourreponame>.git
@@ -99,23 +98,14 @@ $ flask run
 ```
 16)  Click Send
 * If it returns "Done" then it is working! 
-
 ## Setting Up Heroku
-
 17)  Open [Heroku](https://dashboard.heroku.com/) dashboard
-
 18)  new>Create new app
-
 19)  Give it a name and hit Create app
-
 20)  Under Deployment method, select GitHub
-
 21)  Connect to GitHub by searching for your repo
-
 22)  Once you have found the repo you are using, click Connect
-
 23)  Under Automatic deploys, click Enable Automatic Deploys
-
 24)  Back in VS Code terminal :
 ```
 $ pipenv install gunicorn
