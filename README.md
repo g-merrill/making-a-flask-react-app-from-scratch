@@ -34,7 +34,6 @@ def create_app():
   return app
 ```
 ## Setting Up Initial Routes
-
 5)
 ```
 $ touch api/views.py
@@ -72,7 +71,6 @@ def create_app():
 $ flask run
 ```
 9) Navigate to http://localhost:5000/api/items
-
 * You should see :
 ```
 {
@@ -86,7 +84,7 @@ $ export FLASK_APP=api
 $ export FLASK_DEBUG=1
 $ flask run
 ```
-* Use [Postman](https://youtu.be/MdyJn4EKfc4) to verify that the POST route is working
+* Use [Postman](https://youtu.be/MdyJn4EKfc4) to verify that the POST route is working :
 
 10)  Open Postman
 11)  Change method to POST and navigate to http://localhost:5000/api/add_item
