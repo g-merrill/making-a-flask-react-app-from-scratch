@@ -463,7 +463,7 @@ export default App;
 ```
 $ git branch frontend
 ```
-76)  We should still be on the master branch. Again in the terminal, at the root level :
+76)  We should still be on the master branch. Again in the terminal, at the root project level :
 ```
 $ mkdir api/static
 $ mkdir api/templates
