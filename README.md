@@ -72,7 +72,8 @@ def create_app():
 $ flask run
 ```
 9) Navigate to http://localhost:5000/api/items
-*) You should see :
+
+* You should see :
 ```
 {
   items: []
@@ -85,69 +86,69 @@ $ export FLASK_APP=api
 $ export FLASK_DEBUG=1
 $ flask run
 ```
-* Use [Postman](https://youtu.be/MdyJn4EKfc4) to verify that the POST route is working by making a POST request of anything you want (like {"test": "test"}) to localhost/5000/api/add_post. If it returns "Done" then it is working! 
+* Use [Postman](https://youtu.be/MdyJn4EKfc4) to verify that the POST route is working
 
-10) Open Postman
+10)  Open Postman
 
-11) Change method to POST and navigate to http://localhost:5000/api/add_item
+11)  Change method to POST and navigate to http://localhost:5000/api/add_item
 
-12) Click the Body tab
+12)  Click the Body tab
 
-13) Make sure the dropdown on the right is set to JSON
+13)  Make sure the dropdown on the right is set to JSON
 
-14) Select 'raw' as the input type and enter something like :
+15)  Select 'raw' as the input type and enter something like :
 ```
 {
   "test": "Expecting Done, 201 response"
 }
 ```
-15) Click Send
+16) Click Send
 * If it returns "Done" then it is working! 
 
 ## Setting Up Heroku
 
-11)  Open [Heroku](https://dashboard.heroku.com/) dashboard
+17)  Open [Heroku](https://dashboard.heroku.com/) dashboard
 
-12)  new>Create new app
+18)  new>Create new app
 
-13)  Give it a name and hit Create app
+19)  Give it a name and hit Create app
 
-14)  Under Deployment method, select GitHub
+20)  Under Deployment method, select GitHub
 
-15)  Connect to GitHub by searching for your repo
+21)  Connect to GitHub by searching for your repo
 
-16)  Once you have found the repo you are using, click Connect
+22)  Once you have found the repo you are using, click Connect
 
-17)  Under Automatic deploys, click Enable Automatic Deploys
+23)  Under Automatic deploys, click Enable Automatic Deploys
 
-18)  Back in VS Code terminal :
+24)  Back in VS Code terminal :
 ```
 $ pipenv install gunicorn
 $ touch wsgi.py
 ```
-19) Inside wsgi.py :
+25) Inside wsgi.py :
 ```
 from api import create_app
 
 app = create_app()
 ```
-20)
+26)
 ```
 $ touch Procfile
 ```
-21) Inside Procfile :
+27) Inside Procfile :
 ```
 web: gunicorn wsgi:app
 ```
-22) Commit and push changes
+28) Commit and push changes
 * If not already automatically starting build and deploying:
 
-22a) Under manual deploy, click Deploy Branch
+28a) Under manual deploy, click Deploy Branch
 
-23) Once deployed, go to the deployed url by clicking Open app at the top of the page
+29) Once deployed, go to the deployed url by clicking Open app at the top of the page
 * Should see Not Found because you haven't set up the root route at '/'
 
-24) If you navigate to '/api/items' you should see:
+30) If you navigate to '/api/items' you should see:
 ```
 {
 	items: [ ]
@@ -157,48 +158,48 @@ just like it showed locally!
 
 ## Setting Up Postgres via Heroku
 
-25) On the Heroku app page, click Overview tab
+31) On the Heroku app page, click Overview tab
 
-26) In Installed add-ons section, click Configure Add-ons
+32) In Installed add-ons section, click Configure Add-ons
 
-27) In the Add-ons search bar, type 'postgres'
+33) In the Add-ons search bar, type 'postgres'
 
-28) 'Heroku Postgres' should be available, click that
+34) 'Heroku Postgres' should be available, click that
 
-29) Select the plan you would like (Hobby Dev is free)
+35) Select the plan you would like (Hobby Dev is free)
 
-30) Click Provision
+36) Click Provision
 
-31) In Settings tab, under Config Vars, click reveal Config Vars
+37) In Settings tab, under Config Vars, click reveal Config Vars
 
-32) Click the edit button
+38) Click the edit button
 
-33) Copy the value of the DATABASE_URL, it should begin with 'postgres://'...
+39) Copy the value of the DATABASE_URL, it should begin with 'postgres://'...
 
-34) Exit edit screen
+40) Exit edit screen
 
-35) In VS Code:
+41) In VS Code:
 ```
 $ pipenv install python-dotenv
 $ touch .env
 ```
-36) in .env file :
+42) in .env file :
 ```
 DATABASE_URL=<copied db url value>
 ```
 
 ## Setting Up the Database Locally
 
-38)
+43)
 ```
 $ pipenv install psycopg2
 ```
-38b) If that fails to install, do the following :
+43b) If that fails to install, do the following :
 ```
 $ pipenv uninstall psycopg2
 $ pipenv install psycopg2-binary
 ```
-37) in api/\_\_init\_\_.py, refactor the code to look like the following :
+44) in api/\_\_init\_\_.py, refactor the code to look like the following :
 ```
 import os
 from flask import Flask
@@ -218,11 +219,11 @@ def create_app():
 
   return app
 ```
-39)
+45)
 ```
 $ touch api/models.py
 ```
-1)  inside api/models.py :
+46)  inside api/models.py :
 ```
 from . import db
 
@@ -231,11 +232,11 @@ class Item(db.Model):
   name = db.Column(db.String(50))
   description = db.Column(db.String(250))
 ```
-58)
+47)
 ```
 $ touch api/commands.py
 ```
-1)  inside api/commands.py :
+48)  inside api/commands.py :
 ```
 import click
 from flask.cli import with_appcontext
@@ -249,7 +250,7 @@ def reset_items():
   db.drop_all()
   db.create_all()
 ```
-60) Refactor api/\_\_init\_\_.py with the commands lines :
+49) Refactor api/\_\_init\_\_.py with the commands lines :
 ```
 import os
 from flask import Flask
@@ -273,7 +274,7 @@ def create_app():
 
   return app
 ```
-X) In the terminal, type 
+50) In the terminal, type 
 ```
 $ flask reset_items
 ```
@@ -281,7 +282,7 @@ $ flask reset_items
 
 ## Item Create Route (The 'C' in CRUD)
 
-1)  In api/views.py, make the following changes :
+51)  In api/views.py, make the following changes :
 ```
 from flask import Blueprint, jsonify, request
 from . import db
@@ -302,28 +303,31 @@ def add_item():
 
 …
 ```
-48)
+52)
 ```
 $ flask run
 ```
+53) Open Postman
 
-49) Open Postman
-50) Change method to POST and navigate to http://localhost:5000/api/add_item
-51) Click the Body tab
-52) Make sure the dropdown on the right is set to JSON
-53) Select 'raw' as the input type and enter something like :
+54) Change method to POST and navigate to http://localhost:5000/api/add_item
+
+55) Click the Body tab
+
+56) Make sure the dropdown on the right is set to JSON
+
+57) Select 'raw' as the input type and enter something like :
 ```
 { 
 	"name" : "Yourname",
 	"description" : "Learning how to build a flask/react app from scratch!"
 }
 ```
-54) Click send
+58) Click send
 * Should receive the Done message if everything works out
 
 ## Item Read-All Route (The 'R' in CRUD)
 
-1)  In api/views.py :
+59)  In api/views.py :
 ```
 …
 
@@ -341,41 +345,40 @@ def items():
 ```
 * Remember to have your server running via the 'flask run' command
 
-x) In Postman, change the request method to GET
+60) In Postman, change the request method to GET
 
-x) type '/api/items' in the address bar 
+61) Type '/api/items' in the address bar 
 * should show the JSON data you entered!
 
-61) Git commit, push, and wait for Heroku to rebuild/redeploy
+62) Git commit, push, and wait for Heroku to rebuild/redeploy
 
-62) Navigate to your deployed url + '/api/items'
-
+63) Navigate to your deployed url + '/api/items'
 * You should also see the JSON data you entered in Postman!
 * __Note:__ If you want to reset your database via the command line, type :
 ```
 $ flask reset_items
 $ flask run
 ```
-
 ## Set Up React Frontend
 * You should be all set up to build out the React frontend now!
 * in the VS terminal, keep the flask backend running on one terminal
-66) Open up a new terminal and type:
+
+64)  Open up a new terminal and type:
 ```
 $ npx create-react-app react-frontend
 $ cd react-frontend
 $ npm start
 ```
-67) Open up another new terminal and type : 
+65) Open up another new terminal and type : 
 ```
 $ cd react-frontend/
 $ npm i semantic-ui-react semantic-ui-css
 ```
-68) In index.js, add this import to the rest of the imports:
+66) In index.js, add this import to the rest of the imports:
 ```
 import 'semantic-ui-css/semantic.min.css';
 ```
-69) In package.json, add the proxy as so:
+67) In package.json, add the proxy as so:
 ```
 …
   },
@@ -384,13 +387,13 @@ import 'semantic-ui-css/semantic.min.css';
 …
 ```
 * In the terminal, make sure you are still in /react-frontend
-70) Do the following commands :
+68) Do the following commands :
 ```
 $ mkdir src/components
 $ touch src/components/ItemForm.js
 $ touch src/components/Items.js
 ```
-71) In ItemForm.js :
+69) In ItemForm.js :
 ```
 import React, { useState } from 'react';
 import { Form, Input, Button } from 'semantic-ui-react';
@@ -438,7 +441,7 @@ export const ItemForm = ({ onNewItem }) => {
   );
 }
 ```
-72) In Items.js :
+70) In Items.js :
 ```
 import React from 'react';
 import { List, Header } from 'semantic-ui-react';
@@ -458,7 +461,7 @@ export const Items = ({ items }) => {
   );
 }
 ```
-73) Refactor App.js as so: 
+71) Refactor App.js as so: 
 ```
 import React, { useEffect, useState } from 'react';
 import './App.css';
@@ -491,29 +494,30 @@ function App() {
 
 export default App;
 ```
-74) Delete the logo.svg file and README.md files
-75) In App.css :
+72) Delete the logo.svg file and README.md files
+
+73) In App.css :
 ```
 .App {
   text-align: left;
 }
 ```
-76) Git commit and git push - almost there!
+74) Git commit and git push - almost there!
 
 ## Npm Eject
 
-* Now that we have a front end that we are happy with and don't anticipate needing the React hot-reloading much more, it's time to build this out to be served by our Flask backend.  Again, you will lose the handy React hot-reloading on localhost:3000 with npm start by using this method, so be sure to have your frontend in a relatively finished state before doing these final steps.  After these steps, you can still make changes to the frontend, but they must be applied manually with a terminal command and a small wait time.
+* Once you are happy with your React frontend, it's time to use npm run build to serve our frontend work with our Flask backend.  However, to get the index.html to be written to the backend directory, 'api', we will need to do npm run eject.  By doing so, you will lose the handy React hot-reloading on localhost:3000 with npm start by using this method, but we will do a workaround to be able to keep it!  So at this point, we will split the project into two branches, a frontend branch and the master branch.  The master branch will be the branch we do npm run eject from, and we'll merge any additional React frontend changes in from the unejected React-friendly frontend branch if need be.
 
-x) Create a new branch in the terminal :
+75) Create a new branch in the terminal :
 ```
 $ git branch frontend
 ```
-1)  Again in the terminal, at the root level :
+76)  We should still be on the master branch. Again in the terminal, at the root level :
 ```
 $ mkdir api/static
 $ mkdir api/templates
 ```
-78) In api/views.py, add a home route as such:
+77) In api/views.py, add a home route as such:
 ```
 from flask import Blueprint, jsonify, request, render_template
 
@@ -525,31 +529,34 @@ def home():
 
 …
 ```
-79) git commit and push ejected branch to origin before doing the following
-80) In the terminal :
+78) git commit and push ejected branch to origin before doing the following
+
+79) In the terminal :
 ```
 $ cd react-frontend/
 $ npm run eject
 ```
-81) When prompted to confirm, type y
-82) Once completed, in config/paths.js around line 72, change appBuild to:
+80) When prompted to confirm, type y
+
+81) Once completed, in config/paths.js around line 72, change appBuild to:
 ```
   appBuild: resolveApp('../api/static/react'),
 ```
-83) In web pack.config.js, control+F and command+D for 'static/' as necessary and erase them all, there should be around 8 of them
-84) Down around line ~528, in plugins: [ new HtmlWebpackPlugin( Object.assign etc, beneath the inject and template lines, write the following:
+82) In web pack.config.js, control+F and command+D for 'static/' as necessary and erase them all, there should be around 8 of them
+
+83) Down around line ~520-528, in plugins: [ new HtmlWebpackPlugin( Object.assign etc, beneath the inject and template lines, write the following:
 ```
           filename: '../../templates/index.html',
 ```
-85) In public/index.html, underneath the <title> tag, write :
+84) In public/index.html, underneath the <title> tag, write :
 ```
     <script>window.token = "{{ token }}"</script>
 ```
-86) In the react frontend, in App.js, can put the following anywhere you want to test if things are properly working :
+85) In the react frontend, in App.js, can put the following anywhere you want to test if things are properly working :
 ```
       <p>My Token = { window.token }</p>
 ```
-87) In package.json, add a homepage top-level variable:
+86) In package.json, add a homepage top-level variable:
 ```
 … 
   "private": true,
@@ -557,31 +564,34 @@ $ npm run eject
   "dependencies": {
 …
 ```
-88) Making sure you are in the react frontend directory, in the terminal, type :
+87) Making sure you are in the react frontend directory, in the terminal, type :
 ```
 npm run build
 ```
 * Install any necessary packages if you are prompted to
-* You should see a react folder in the api/static folder now and and index.html in the templates folder
-90) Start up your flask backend
-91) Browse to http://localhost:5000
+* You should now see a react folder in the api/static folder now and and index.html in the templates folder
+
+88)  Start up your flask backend
+
+89) Browse to http://localhost:5000
 * You should see your react frontend with the sample token message!
-92) git commit and push and wait for Heroku to rebuild/redeploy
+
+90)  git commit and push and wait for Heroku to rebuild/redeploy
 
 **Check out your shiny new deployed Flask/React app!!!**
 
 ## Making Further Frontend Changes in React
 
-93) Switch to frontend branch
+91) Switch to frontend branch
 ```
 $ git checkout frontend
 ```
 * This branch should be non-ejected, so you should have access to the instant reload while making frontend changes on localhost:3000 using npm start
-* known [bug](https://stackoverflow.com/a/42539669/12498743) with node_modules needing to be deleted and reinstalled:
+* potential [bugfix](https://stackoverflow.com/a/42539669/12498743) with node_modules needing to be deleted and reinstalled:
 
-94) Make any desired frontend changes
+92) Make any desired frontend changes
 
-95) In the terminal :
+93) In the terminal :
 ```
 $ git add . && git status
 $ git commit -m 'Some description of changes'
@@ -591,9 +601,10 @@ $ git merge frontend
 $ cd react-frontend && npm run build && cd .. && pipenv shell
 $ export FLASK_APP=api && export FLASK_DEBUG=1 && open http://localhost:5000 && flask run
 ```
-96) git commit and push and view deployed changes via Heroku
+94)  Git commit, push, and wait for Heroku to rebuild/redeploy
 
 ## Done!
+
 **Congrats, you made it to the end of this guide!**
 
 [Deployed Link!](https://flask-react-app-from-scratch.herokuapp.com/)
