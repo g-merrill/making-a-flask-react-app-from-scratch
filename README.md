@@ -84,7 +84,7 @@ $ flask run
 ```
 * Use [Postman](https://youtu.be/MdyJn4EKfc4) to verify that the POST route is working :
 10)  Open Postman
-11)  Change method to POST and navigate to http://localhost:5000/api/add_item
+11)  Change method to POST and type http://localhost:5000/api/add_item as the request URL
 12)  Click the Body tab
 13)  Make sure the dropdown on the right is set to JSON
 14)  Select 'raw' as the input type
@@ -130,7 +130,7 @@ web: gunicorn wsgi:app
 
 29) Once deployed, go to the deployed url by clicking Open app at the top of the page
 * Should see Not Found because you haven't set up the root route at '/'
-30) If you navigate to '/api/items' you should see :
+30) If you navigate to your deployed url + '/api/items', you should see :
 ```
 {
 	items: [ ]
@@ -274,7 +274,7 @@ def add_item():
 $ flask run
 ```
 53) Open Postman
-54) Change method to POST and navigate to http://localhost:5000/api/add_item
+54) Change method to POST and type http://localhost:5000/api/add_item as the request URL
 55) Click the Body tab
 56) Make sure the dropdown on the right is set to JSON
 57) Select 'raw' as the input type and enter something like :
