@@ -5,7 +5,7 @@ from .models import Item
 api = Blueprint('api', __name__)
 
 @api.route('/')
-def my_index():
+def home():
   return render_template('index.html', token='Hello Flask+React')
 
 @api.route('/api/add_item', methods=['POST'])

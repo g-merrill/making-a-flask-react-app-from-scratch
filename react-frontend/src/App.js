@@ -19,6 +19,7 @@ function App() {
   return (
     <Container 
       style={{ marginTop: 40 }}
+      className='App'
     >
       <ItemForm 
         onNewItem={item => setItems(currentItems => [item, ...currentItems])}

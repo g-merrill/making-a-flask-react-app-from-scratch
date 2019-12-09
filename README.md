@@ -12,7 +12,7 @@ $ pipenv shell
 $ git add . && git status
 $ git commit -m 'Initial commit'
 ```
-2) Create your repo on Github
+2) Create your repo on [Github](https://github.com/new)
 
 3)
 ```
@@ -72,6 +72,12 @@ def create_app():
 $ flask run
 ```
 9) Navigate to http://localhost:5000/api/items
+*) You should see :
+```
+{
+  items: []
+}
+```
 * __Note:__ Anytime that you close and reopen the terminal/project, you can get the app running locally again with the following terminal commands:
 ```
 $ pipenv shell
@@ -79,7 +85,24 @@ $ export FLASK_APP=api
 $ export FLASK_DEBUG=1
 $ flask run
 ```
-10) Use [Postman](https://youtu.be/MdyJn4EKfc4) to verifty that the POST route is working by making a POST request of anything you want (like {"test": "test"}) to localhost/5000/api/add_post. If it returns "Done" then it is working! 
+* Use [Postman](https://youtu.be/MdyJn4EKfc4) to verify that the POST route is working by making a POST request of anything you want (like {"test": "test"}) to localhost/5000/api/add_post. If it returns "Done" then it is working! 
+
+10) Open Postman
+
+11) Change method to POST and navigate to http://localhost:5000/api/add_item
+
+12) Click the Body tab
+
+13) Make sure the dropdown on the right is set to JSON
+
+14) Select 'raw' as the input type and enter something like :
+```
+{
+  "test": "Expecting Done, 201 response"
+}
+```
+15) Click Send
+* If it returns "Done" then it is working! 
 
 ## Setting Up Heroku
 
@@ -91,7 +114,7 @@ $ flask run
 
 14)  Under Deployment method, select GitHub
 
-15)  Connect to GitHub by search for your repo
+15)  Connect to GitHub by searching for your repo
 
 16)  Once you have found the repo you are using, click Connect
 
@@ -150,7 +173,7 @@ just like it showed locally!
 
 32) Click the edit button
 
-33) Copy the value of the DATABASE_URL
+33) Copy the value of the DATABASE_URL, it should begin with 'postgres://'...
 
 34) Exit edit screen
 
@@ -159,13 +182,22 @@ just like it showed locally!
 $ pipenv install python-dotenv
 $ touch .env
 ```
-36) in .env :
+36) in .env file :
 ```
 DATABASE_URL=<copied db url value>
 ```
 
-## Setting Up SQLite Database Locally
+## Setting Up the Database Locally
 
+38)
+```
+$ pipenv install psycopg2
+```
+38b) If that fails to install, do the following :
+```
+$ pipenv uninstall psycopg2
+$ pipenv install psycopg2-binary
+```
 37) in api/\_\_init\_\_.py, refactor the code to look like the following :
 ```
 import os
@@ -186,20 +218,11 @@ def create_app():
 
   return app
 ```
-38)
-```
-$ pipenv install psycopg2
-```
-38b) If that fails :
-```
-$ pipenv uninstall psycopg2
-$ pipenv install psycopg2-binary
-```
 39)
 ```
 $ touch api/models.py
 ```
-40) inside api/models.py :
+1)  inside api/models.py :
 ```
 from . import db
 
@@ -208,37 +231,6 @@ class Item(db.Model):
   name = db.Column(db.String(50))
   description = db.Column(db.String(250))
 ```
-
-## Item Create Route (The 'C' in CRUD)
-
-1)  In api/views.py, make the following changes :
-```
-from flask import Blueprint, jsonify, request
-from . import db
-from .models import Item
-
-…
-
-@api.route('/api/add_item', methods=['POST'])
-def add_item():
-  item_data = request.get_json()
-
-  new_item = Item(name=item_data['name'], description=item_data['description'])
-
-  db.session.add(new_item)
-  db.session.commit()
-
-  return 'Done', 201
-
-…
-```
-48)
-```
-$ flask run
-```
-
-* Okay now we are going to get things up and running on your app deployed on heroku with the Postgres db
-
 58)
 ```
 $ touch api/commands.py
@@ -281,8 +273,39 @@ def create_app():
 
   return app
 ```
+X) In the terminal, type 
+```
+$ flask reset_items
+```
+* running this command should create the items table in your postgres db for the first time
 
-In the terminal, type 'flask reset_items'
+## Item Create Route (The 'C' in CRUD)
+
+1)  In api/views.py, make the following changes :
+```
+from flask import Blueprint, jsonify, request
+from . import db
+from .models import Item
+
+…
+
+@api.route('/api/add_item', methods=['POST'])
+def add_item():
+  item_data = request.get_json()
+
+  new_item = Item(name=item_data['name'], description=item_data['description'])
+
+  db.session.add(new_item)
+  db.session.commit()
+
+  return 'Done', 201
+
+…
+```
+48)
+```
+$ flask run
+```
 
 49) Open Postman
 50) Change method to POST and navigate to http://localhost:5000/api/add_item
@@ -291,7 +314,7 @@ In the terminal, type 'flask reset_items'
 53) Select 'raw' as the input type and enter something like :
 ```
 { 
-	"name" : "Greg",
+	"name" : "Yourname",
 	"description" : "Learning how to build a flask/react app from scratch!"
 }
 ```
@@ -316,20 +339,23 @@ def items():
 
 …
 ```
-* Remember to have server running via the 'flask run' command
-* Now in Postman, the '/api/items' get request should show the data you entered!
+* Remember to have your server running via the 'flask run' command
+
+x) In Postman, change the request method to GET
+
+x) type '/api/items' in the address bar 
+* should show the JSON data you entered!
 
 61) Git commit, push, and wait for Heroku to rebuild/redeploy
 
 62) Navigate to your deployed url + '/api/items'
-* And you should see:
+
+* You should also see the JSON data you entered in Postman!
+* __Note:__ If you want to reset your database via the command line, type :
 ```
-{
-	items: [ ]
-}
+$ flask reset_items
+$ flask run
 ```
-* Back in Heroku, you may need to add a SECRET_KEY as another config var, you can make it any random string that you would like (I am unsure if this is actually needed or not, since my other flask/react apps haven't needed one)
-* __Note:__ If you want to reset on the local server side, type 'flask reset_items' and then 'flask run'
 
 ## Set Up React Frontend
 * You should be all set up to build out the React frontend now!
@@ -452,6 +478,7 @@ function App() {
   return (
     <Container 
       style={{ marginTop: 40 }}
+      className='App'
     >
       <ItemForm 
         onNewItem={item => setItems(currentItems => [item, ...currentItems])} />
@@ -468,7 +495,7 @@ export default App;
 75) In App.css :
 ```
 .App {
-  text-align: center;
+  text-align: left;
 }
 ```
 76) Git commit and git push - almost there!
@@ -476,7 +503,12 @@ export default App;
 ## Npm Eject
 
 * Now that we have a front end that we are happy with and don't anticipate needing the React hot-reloading much more, it's time to build this out to be served by our Flask backend.  Again, you will lose the handy React hot-reloading on localhost:3000 with npm start by using this method, so be sure to have your frontend in a relatively finished state before doing these final steps.  After these steps, you can still make changes to the frontend, but they must be applied manually with a terminal command and a small wait time.
-1)  In the terminal, at the root level :
+
+x) Create a new branch in the terminal :
+```
+$ git branch frontend
+```
+1)  Again in the terminal, at the root level :
 ```
 $ mkdir api/static
 $ mkdir api/templates
@@ -488,12 +520,12 @@ from flask import Blueprint, jsonify, request, render_template
 …
 
 @api.route('/')
-def my_index():
+def home():
   return render_template('index.html', token='Hello Flask+React')
 
 …
 ```
-79) git commit and push before doing the following
+79) git commit and push ejected branch to origin before doing the following
 80) In the terminal :
 ```
 $ cd react-frontend/
@@ -529,17 +561,40 @@ $ npm run eject
 ```
 npm run build
 ```
-89) Install any necessary packages that you are prompted to
+* Install any necessary packages if you are prompted to
 * You should see a react folder in the api/static folder now and and index.html in the templates folder
-* __Note:__ Anytime you make any changes to your react frontend, you need to do 'npm run build' to update the actually served files inside the api directory
 90) Start up your flask backend
-91) Browse to localhost:5000
+91) Browse to http://localhost:5000
 * You should see your react frontend with the sample token message!
 92) git commit and push and wait for Heroku to rebuild/redeploy
 
+**Check out your shiny new deployed Flask/React app!!!**
+
+## Making Further Frontend Changes in React
+
+93) Switch to frontend branch
+```
+$ git checkout frontend
+```
+* This branch should be non-ejected, so you should have access to the instant reload while making frontend changes on localhost:3000 using npm start
+* known [bug](https://stackoverflow.com/a/42539669/12498743) with node_modules needing to be deleted and reinstalled:
+
+94) Make any desired frontend changes
+
+95) In the terminal :
+```
+$ git add . && git status
+$ git commit -m 'Some description of changes'
+$ git checkout master
+$ git merge frontend
+:wq
+$ cd react-frontend && npm run build && cd .. && pipenv shell
+$ export FLASK_APP=api && export FLASK_DEBUG=1 && open http://localhost:5000 && flask run
+```
+96) git commit and push and view deployed changes via Heroku
+
 ## Done!
 **Congrats, you made it to the end of this guide!**
-**Check out your shiny new deployed Flask/React app!!!**
 
 [Deployed Link!](https://flask-react-app-from-scratch.herokuapp.com/)
 
