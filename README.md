@@ -530,7 +530,7 @@ npm run build
 $ git checkout frontend
 ```
 * This branch should be non-ejected, so you should have access to the instant reload while making frontend changes on localhost:3000 using npm start
-* potential [bugfix](https://stackoverflow.com/a/42539669/12498743) with node_modules needing to be deleted and reinstalled
+* if npm start throws an error: [potential bugfix here](https://stackoverflow.com/a/42539669/12498743), with node_modules needing to be deleted and reinstalled
 92) Make any desired frontend changes
 93) In the terminal :
 ```
