@@ -79,25 +79,25 @@ $ export FLASK_APP=api
 $ export FLASK_DEBUG=1
 $ flask run
 ```
-10) Use [Postman](https://youtu.be/MdyJn4EKfc4) to verifty that the POST route is working by making a POST request to localhost/5000/api/add_post. If it returns "Done" then it is working! 
+10) Use [Postman](https://youtu.be/MdyJn4EKfc4) to verifty that the POST route is working by making a POST request of anything you want (like {"test": "test"}) to localhost/5000/api/add_post. If it returns "Done" then it is working! 
 
 ## Setting Up Heroku
 
-1)  Open [Heroku](https://dashboard.heroku.com/) dashboard
+11)  Open [Heroku](https://dashboard.heroku.com/) dashboard
 
-2)  new>Create new app
+12)  new>Create new app
 
-3)  Give it a name and hit Create app
+13)  Give it a name and hit Create app
 
-4)  Under Deployment method, select GitHub
+14)  Under Deployment method, select GitHub
 
-5)  Connect to GitHub by search for your repo
+15)  Connect to GitHub by search for your repo
 
-6)  Once you have found the repo you are using, click Connect
+16)  Once you have found the repo you are using, click Connect
 
-7)  Under Automatic deploys, click Enable Automatic Deploys
+17)  Under Automatic deploys, click Enable Automatic Deploys
 
-8)  Back in VS Code terminal :
+18)  Back in VS Code terminal :
 ```
 $ pipenv install gunicorn
 $ touch wsgi.py
@@ -177,8 +177,7 @@ db = SQLAlchemy()
 def create_app():
   app = Flask(__name__)
   
-  # app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
-  app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+  app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 
   db.init_app(app)
 
@@ -209,29 +208,6 @@ class Item(db.Model):
   name = db.Column(db.String(50))
   description = db.Column(db.String(250))
 ```
-* Before using Postgres let's set up a local sqlite db just for easy development purposes
-41) In the terminal, open the python shell by typing :
-```
-$ python
-```
-42) then, type the following commands:
-```
->>> from api.models import Item
->>> from api import db, create_app
->>> db.create_all(app=create_app())
-```
-* This should create a database.db file in the /api folder
-43) Back in the terminal, check to see if the table was created by entering the following :
-```
-$ sqlite3 api/database.db
-```
-44) Now in the sqlite shell :
-```
-.tables
-```
-* You should see 'item'
-45) If you type 'select * from item', nothing should show up since there isn't anything in the db yet
-46) Type .exit to exit the sqlite shell
 
 ## Item Create Route (The 'C' in CRUD)
 
@@ -260,65 +236,14 @@ def add_item():
 ```
 $ flask run
 ```
-49) Open Postman
-50) Change method to POST and navigate to http://localhost:5000/api/add_item
-51) Click the Body tab
-52) Make sure the dropdown on the right is set to JSON
-53) Select 'raw' as the input type and enter something like :
-```
-{ 
-	"name" : "Greg",
-	"description" : "Learning how to build a flask/react app from scratch!"
-}
-```
-54) Click send
-* Should receive the Done message if everything works out
-
-## Item Read-All Route (The 'R' in CRUD)
-
-55) Back in VS Code terminal, type :
-```
-$ sqlite3 api/database.db
-select * from item
-```
-You should see your entry there!
-
-56) In api/views.py :
-```
-…
-
-@api.route('/api/items')
-def items():
-  items_list = Item.query.all()
-  items = []
-
-  for item in items_list:
-    items.append({ 'name': item.name, 'description': item.description })
-
-  return jsonify({ 'items': items })
-
-…
-```
-* Remember to have server running via the 'flask run' command
-* Now in Postman, the '/api/items' get request should show the data you entered!
-
-## Switching From SQLite to PostgreSQL
 
 * Okay now we are going to get things up and running on your app deployed on heroku with the Postgres db
-57) First, in api/\_\_init\_\_.py, switch the commented-out lines :
-```
-…
 
-  app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
-  # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
-
-…
-```
 58)
 ```
 $ touch api/commands.py
 ```
-59) inside api/commands.py :
+1)  inside api/commands.py :
 ```
 import click
 from flask.cli import with_appcontext
@@ -346,7 +271,6 @@ def create_app():
   app = Flask(__name__)
 
   app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
-  # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
   
   db.init_app(app)
 
@@ -357,15 +281,47 @@ def create_app():
 
   return app
 ```
+
+In the terminal, type 'flask reset_items'
+
+49) Open Postman
+50) Change method to POST and navigate to http://localhost:5000/api/add_item
+51) Click the Body tab
+52) Make sure the dropdown on the right is set to JSON
+53) Select 'raw' as the input type and enter something like :
+```
+{ 
+	"name" : "Greg",
+	"description" : "Learning how to build a flask/react app from scratch!"
+}
+```
+54) Click send
+* Should receive the Done message if everything works out
+
+## Item Read-All Route (The 'R' in CRUD)
+
+1)  In api/views.py :
+```
+…
+
+@api.route('/api/items')
+def items():
+  items_list = Item.query.all()
+  items = []
+
+  for item in items_list:
+    items.append({ 'name': item.name, 'description': item.description })
+
+  return jsonify({ 'items': items })
+
+…
+```
+* Remember to have server running via the 'flask run' command
+* Now in Postman, the '/api/items' get request should show the data you entered!
+
 61) Git commit, push, and wait for Heroku to rebuild/redeploy
 
-62) In the heroku dashboard, click the 'More' dropdown in the top right corner
-
-63) Click run console
-
-64) Type 'flask reset_items' and then click Run
-
-65) Navigate to your deployed url + '/api/items'
+62) Navigate to your deployed url + '/api/items'
 * And you should see:
 ```
 {
@@ -404,9 +360,9 @@ import 'semantic-ui-css/semantic.min.css';
 * In the terminal, make sure you are still in /react-frontend
 70) Do the following commands :
 ```
-$ mkdir components
-$ touch components/ItemForm.js
-$ touch components/Items.js
+$ mkdir src/components
+$ touch src/components/ItemForm.js
+$ touch src/components/Items.js
 ```
 71) In ItemForm.js :
 ```
