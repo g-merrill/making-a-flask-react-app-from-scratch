@@ -428,12 +428,7 @@ export default App;
 74) Git commit and git push - almost there!
 ## Serving the React build files with Flask
 * Once we are happy with our React frontend, it's time to use 'npm run build' to serve the frontend files with our Flask backend.  However, for our Flask app to access the index.html created in the React build folder, we will need to do some nifty routing.
-75) in the terminal, type :
-```
-$ cd app
-$ npm run build
-```
-76) In .gitignore, comment out the /build line, or just remove it completely :
+75)  In app/.gitignore, comment out the /build line, or just remove it completely :
 ```
 ...
 
@@ -447,6 +442,11 @@ $ npm run build
 .DS_Store
 
 ...
+```
+76) in the terminal, type :
+```
+$ cd app
+$ npm run build
 ```
 77) refactor \_\_init\_\_.py :
 ```
