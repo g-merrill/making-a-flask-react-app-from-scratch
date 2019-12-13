@@ -433,7 +433,22 @@ export default App;
 $ cd app
 $ npm run build
 ```
-76) refactor \_\_init\_\_.py :
+76) In .gitignore, comment out the /build line, or just remove it completely :
+```
+...
+
+# testing
+/coverage
+
+# # production
+# /build
+
+# misc
+.DS_Store
+
+...
+```
+77) refactor \_\_init\_\_.py :
 ```
 import os
 from flask import Flask, send_from_directory
@@ -466,20 +481,20 @@ def create_app():
 
   return app
 ```
-77) With your backend still running on the first terminal session, browse once again to http://localhost:5000
+78) With your backend still running on the first terminal session, browse once again to http://localhost:5000
 * Now you should see your react frontend!
-78) git commit, git push, wait for Heroku to rebuild/redeploy, open the app at the deployed url and...
+79) git commit, git push, wait for Heroku to rebuild/redeploy, open the app at the deployed url and...
 
 **Check out your shiny new deployed Flask/React app!!!**
 ## Making Further Frontend Changes in React
-79) Make any desired frontend changes
-80) In the terminal :
+80) Make any desired frontend changes
+81) In the terminal :
 ```
 $ git add . && git status
 $ git commit -m 'Some description of changes'
 $ cd app && npm run build && cd .. && open http://localhost:5000 && flask run
 ```
-81) Git commit, push, and wait for Heroku to rebuild/redeploy
+82) Git commit, push, and wait for Heroku to rebuild/redeploy
 ## Done!
 **Congrats, you made it to the end of this guide!**
 
