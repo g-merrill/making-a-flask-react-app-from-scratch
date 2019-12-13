@@ -311,11 +311,11 @@ $ npm i semantic-ui-react semantic-ui-css
 import 'semantic-ui-css/semantic.min.css';
 ...
 ```
-68) In the terminal
+68) In the terminal, still inside the app directory :
 ```
-$ mkdir app/src/components
-$ touch app/src/components/ItemForm.js
-$ touch app/src/components/Items.js
+$ mkdir src/components
+$ touch src/components/ItemForm.js
+$ touch src/components/Items.js
 ```
 69) In ItemForm.js :
 ```
