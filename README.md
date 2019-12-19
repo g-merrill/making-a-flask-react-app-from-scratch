@@ -6,9 +6,8 @@ $ mkdir flask-react-app
 $ cd flask-react-app
 $ git init && code .
 
-$ pipenv install flask flask-sqlalchemy gunicorn
+$ pipenv install flask flask-sqlalchemy gunicorn python-dotenv
 $ pipenv shell
-$ export FLASK_DEBUG=1
 
 $ git add . && git status
 $ git commit -m 'Initial commit'
@@ -31,20 +30,31 @@ def create_app():
 ```
 5)
 ```
+$ touch .env
+```
+6) inside .env :
+```
+FLASK_APP=app
+FLASK_DEBUG=1
+```
+7)
+```
 $ touch wsgi.py
 ```
-6) inside wsgi.py :
+8) inside wsgi.py :
 ```
 from app import create_app
+from dotenv import load_dotenv
 
+load_dotenv()
 app = create_app()
 ```
 ## Setting Up Initial Routes
-7)
+9)
 ```
 $ touch app/views.py
 ```
-8) Inside views.py :
+10) Inside views.py :
 ```
 from flask import Blueprint, jsonify
 
@@ -57,7 +67,7 @@ def items():
 
   return jsonify({ 'items': items })
 ```
-9) inside \_\_init\_\_.py, modify the create_app function :
+11) inside \_\_init\_\_.py, modify the create_app function :
 ```
 def create_app():
   app = Flask(__name__)
@@ -67,11 +77,11 @@ def create_app():
 
   return app
 ```
-10) In the terminal :
+12) In the terminal :
 ```
 $ flask run
 ```
-11) Navigate to http://localhost:5000/api/items
+13) Navigate to http://localhost:5000/api/items
 * You should see :
 ```
 {
@@ -84,7 +94,7 @@ $ pipenv shell
 $ export FLASK_DEBUG=1
 $ flask run
 ```
-12) Inside views.py, add the following function:
+14) Inside views.py, add the following function:
 ```
 ...
 
@@ -93,11 +103,10 @@ def add_item():
 
   return 'The POST request to this route worked!', 201
 ```
-13) Open [Postman](https://youtu.be/MdyJn4EKfc4)
-14) Change method to POST and type http://localhost:5000/api/add_item as the request URL
-15) Click the Body tab
-16) Make sure the dropdown on the right is set to JSON
-17) Select 'raw' as the input type
+15) Open [Postman](https://youtu.be/MdyJn4EKfc4)
+16) Change method to POST and type http://localhost:5000/api/add_item as the request URL
+17) Click the Body tab
+* Make sure the dropdown on the right is set to JSON and 'raw' is selected as the input type
 18) In the text area, enter something like :
 ```
 {
@@ -143,15 +152,16 @@ just like it showed locally!
 38) Click Provision
 39) In Settings tab, under Config Vars, click reveal Config Vars
 40) Click the edit button
-41) Copy the value of the DATABASE_URL, it should begin with 'postgres://'...
-42) Exit edit screen
+41) Copy the value of the DATABASE_URL and exit, the string value should begin with 'postgres://'...
+42) While you are there, add the FLASK_APP=app and FLASK_DEBUG=1 key-value pairs as additional Config Vars in the Heroku console
 43) Back in VS Code, in the terminal :
 ```
-$ pipenv install python-dotenv psycopg2-binary
-$ touch .env
+$ pipenv install psycopg2-binary
 ```
 44) in the .env file :
 ```
+FLASK_APP=app
+FLASK_DEBUG=1
 DATABASE_URL=<copied db url value>
 ```
 ## Setting Up the Database Locally
@@ -199,7 +209,7 @@ from .commands import reset_items
 def create_app():
   app = Flask(__name__)
 
-  app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+  app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
   
   db.init_app(app)
 
@@ -461,7 +471,7 @@ from .commands import reset_items
 def create_app():
   app = Flask(__name__, static_folder='build')
 
-  app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+  app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
 
   db.init_app(app)
 

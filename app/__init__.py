@@ -9,7 +9,7 @@ from .commands import reset_items
 def create_app():
   app = Flask(__name__, static_folder='build')
 
-  app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+  app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
 
   db.init_app(app)
 
