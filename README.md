@@ -91,7 +91,6 @@ $ flask run
 * __Note:__ Anytime that you close and reopen the terminal/project, you can get the app running locally in your virtual environment again with the following terminal commands :
 ```
 $ pipenv shell
-$ export FLASK_DEBUG=1
 $ flask run
 ```
 14) Inside views.py, add the following function:
