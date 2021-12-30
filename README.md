@@ -323,7 +323,7 @@ $ npm i semantic-ui-react semantic-ui-css
 import 'semantic-ui-css/semantic.min.css';
 ...
 ```
-67b) There might be a bug with the semantic.min.css file, causing the npm start and build to fail to compile.  Do the following in package.json as a workaround:
+67b) There might be a [bug](https://github.com/Semantic-Org/Semantic-UI/issues/7073) with the semantic.min.css file, causing the npm start and build to fail to compile.  Do the following in package.json as a workaround:
 ```
 ...
   "scripts": {
