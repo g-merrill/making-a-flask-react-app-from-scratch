@@ -93,6 +93,10 @@ $ flask run
 $ pipenv shell
 $ flask run
 ```
+* __Addtl Note:__ If you for some reason are getting 'command not found: flask' when attempting flask run, try reinstalling the python packages:
+```
+$ pipenv install flask flask-sqlalchemy gunicorn python-dotenv psycopg2-binary
+```
 14) Inside views.py, add the following function:
 ```
 ...
