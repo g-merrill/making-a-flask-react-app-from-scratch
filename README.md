@@ -323,6 +323,17 @@ $ npm i semantic-ui-react semantic-ui-css
 import 'semantic-ui-css/semantic.min.css';
 ...
 ```
+67b) There might be a bug with the semantic.min.css file, causing the npm start and build to fail to compile.  Do the following in package.json as a workaround:
+```
+...
+  "scripts": {
+    "start": "sed -i '' 's/;;/;/g' node_modules/semantic-ui-css/semantic.min.css && react-scripts start",
+    "build": "sed -i '' 's/;;/;/g' node_modules/semantic-ui-css/semantic.min.css && react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+...
+```
 68) In the terminal, still inside the app directory :
 ```
 $ mkdir src/components
