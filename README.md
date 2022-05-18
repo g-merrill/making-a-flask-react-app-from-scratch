@@ -250,7 +250,7 @@ def add_item():
   db.session.add(new_item)
   db.session.commit()
 
-  return 'The POST request to this route worked!', 201
+  return item_data, 201
 
 ...
 ```
