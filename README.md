@@ -9,6 +9,7 @@ $ git init && code .
 $ virtualenv venv
 $ source venv/bin/activate
 $ pip install flask flask-sqlalchemy gunicorn python-dotenv psycopg2-binary
+$ pip freeze > requirements.txt
 
 $ git add . && git status
 $ git commit -m 'Initial commit'
