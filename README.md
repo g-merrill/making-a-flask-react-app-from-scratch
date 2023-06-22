@@ -14,7 +14,7 @@ $ pip freeze > requirements.txt
 $ git add . && git status
 $ git commit -m 'Initial commit'
 $ git remote add origin https://github.com/<yourgithubusername>/<yourreponame>.git
-$ git push -u origin master
+$ git push -u origin main
 ```
 3)
 ```
