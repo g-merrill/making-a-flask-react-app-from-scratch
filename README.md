@@ -6,8 +6,9 @@ $ mkdir flask-react-app
 $ cd flask-react-app
 $ git init && code .
 
-$ pipenv install flask flask-sqlalchemy gunicorn python-dotenv
-$ pipenv shell
+$ virtualenv venv
+$ source venv/bin/activate
+$ pip install flask flask-sqlalchemy gunicorn python-dotenv psycopg2-binary
 
 $ git add . && git status
 $ git commit -m 'Initial commit'
@@ -90,12 +91,12 @@ $ flask run
 ```
 * __Note:__ Anytime that you close and reopen the terminal/project, you can get the app running locally in your virtual environment again with the following terminal commands :
 ```
-$ pipenv shell
+$ source venv/bin/activate
 $ flask run
 ```
 * __Addtl Note:__ If you for some reason are getting 'command not found: flask' when attempting flask run, try reinstalling the python packages:
 ```
-$ pipenv install flask flask-sqlalchemy gunicorn python-dotenv psycopg2-binary
+$ pip install flask flask-sqlalchemy gunicorn python-dotenv psycopg2-binary
 ```
 14) Inside views.py, add the following function:
 ```
